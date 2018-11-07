@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 // import Konva from 'konva';
 // import { Stage, Layer, Image } from 'react-konva';
 import Sprite from './Sprite'
-import UUID from 'uuid'
+// import UUID from 'uuid'
 
 class SpriteList extends Component{
 

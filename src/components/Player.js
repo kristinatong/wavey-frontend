@@ -1,11 +1,8 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player'
 
 class Player extends Component{
-  state = {
-
-  }
 
   render(){
     console.log('SOUND PROPS', this.props)
@@ -17,10 +14,7 @@ class Player extends Component{
     }
     if(this.props.selectedSprite.selectedSound){
       return(
-        <Fragment>
           <ReactPlayer style={playerStyle} width={300} height={50} url={this.props.selectedSprite.selectedSound.url} playing controls={true}/>
-          <ReactPlayer url='' playing />
-        </Fragment>
       )
     }else{
       return null

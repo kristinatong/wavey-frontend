@@ -5,6 +5,7 @@ import Canvas from './Canvas'
 import SoundBar from './SoundBar'
 import ControlBar from './ControlBar'
 import Player from './Player'
+import UploadSound from './UploadSound'
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
         <ControlBar />
         <Canvas />
         <Player />
+        <UploadSound />
       </div>
     );
   }

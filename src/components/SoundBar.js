@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-// import * as actions from '../actions/actions';
+import * as actions from '../actions/sound';
 // import { Stage, Layer, Text, Image } from 'react-konva';
-import { selectSound } from '../actions/sound'
+// import { selectSound, setSounds } from '../actions/sound'
 
 class SoundBar extends Component{
+  componentDidMount(){
+    fetch('http://localhost:3000/api/v1/sounds')
+      .then(r => r.json())
+      .then(sounds => {
+        this.props.setSounds(sounds)
+      })
+  }
 
   selectSound = (sound) => {
     this.props.selectSound(sound, this.props.selectedSprite.uniqueKey)
@@ -35,13 +42,6 @@ class SoundBar extends Component{
         </ul>
       </div>
     )
-    // return(
-    //   <Stage style={soundStyle} width={160} height={800}>
-    //     <Layer>
-    //       <Text text='Sound Bar'/>
-    //     </Layer>
-    //   </Stage>
-    // )
   }
 }
 
@@ -53,12 +53,12 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    selectSound: (sound,uniqueKey) => {
-      dispatch(selectSound(sound,uniqueKey))
-    }
-  }
-}
+// function mapDispatchToProps(dispatch){
+//   return {
+//     selectSound: (sound,uniqueKey) => {
+//       dispatch(selectSound(sound,uniqueKey))
+//     }
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SoundBar);
+export default connect(mapStateToProps, actions)(SoundBar);
