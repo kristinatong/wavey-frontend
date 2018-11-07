@@ -4,6 +4,7 @@ import SpriteBar from './SpriteBar'
 import Canvas from './Canvas'
 import SoundBar from './SoundBar'
 import ControlBar from './ControlBar'
+import Player from './Player'
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
         <SoundBar />
         <ControlBar />
         <Canvas />
+        <Player />
       </div>
     );
   }

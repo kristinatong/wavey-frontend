@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 // import Konva from 'konva';
 // import { Stage, Layer, Image } from 'react-konva';
 import Sprite from './Sprite'
+import UUID from 'uuid'
 
 class SpriteList extends Component{
-  state = {
-
-  }
 
   renderSprites = () => {
-    return this.props.canvasSprites.map(sprite => <Sprite key={sprite.id} sprite={sprite}/>)
+    return this.props.canvasSprites.map(sprite => <Sprite key={sprite.uniqueKey} sprite={sprite}/>)
   }
 
   render(){
@@ -27,7 +25,8 @@ class SpriteList extends Component{
 
 function mapStateToProps(state) {
   return {
-
+    selectedSprite: state.sprite.selectedSprite,
+    canvasSprites: state.sprite.canvasSprites
   }
 }
 

@@ -2,27 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 // import Konva from 'konva';
 // import { Stage, Layer, Image } from 'react-konva';
+import { addSprite } from '../actions/sprite'
+import UUID from 'uuid'
 
 class SpriteBar extends Component{
   state = {
     selectedSprite: null
   }
-
-  // onDragStart = (ev, id) => {
-  //   ev.dataTransfer.setData("id", id);
-  // }
-  //
-  // onDragOver = (ev) => {
-  //   ev.preventDefault();
-  // }
-
-  // sprites = () => {
-  //   const imgStyle={width:'100px', height:'100px'}
-  //   return this.props.sprites.map(sprite => {
-  //     return <img key={sprite.id} style={imgStyle} onDragStart = {(e) => this.onDragStart(e, sprite.url)}
-  //       draggable src={sprite.url}/>
-  //     })
-  //   }
 
   selectSprite = (sprite) => {
     this.setState({
@@ -37,15 +23,17 @@ class SpriteBar extends Component{
       })
     }
 
-  addSprite = () => {
+  addSpriteMethod = () => {
+    const uniqueKey = UUID()
     if(!!this.state.selectedSprite){
-      this.props.addSprite(this.state.selectedSprite)
+      this.props.addSprite({...this.state.selectedSprite,uniqueKey:uniqueKey})
       this.setState({selectedSprite: null})
     }
   }
 
   render(){
     console.log('spritebar state',this.state)
+    console.log('spritebar props',this.props)
     const divStyle = {
       position: 'absolute',
       width: '150px',
@@ -67,7 +55,7 @@ class SpriteBar extends Component{
       <div style={divStyle}>
         <h1>Sprite Bar</h1>
         {this.sprites()}
-        <button onClick={this.addSprite}>Add Sprite</button>
+        <button onClick={this.addSpriteMethod}>Add Sprite</button>
       </div>
     )
   }
@@ -81,7 +69,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch){
   return {
-
+    addSprite: (selectedSprite) => {
+      dispatch(addSprite(selectedSprite))
+    }
   }
 }
 

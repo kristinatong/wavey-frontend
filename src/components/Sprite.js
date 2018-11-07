@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 // import * as actions from '../actions/actions';
 // import Konva from 'konva';
 import { Image } from 'react-konva';
+import { selectSprite } from '../actions/sprite'
 
 class Sprite extends Component{
   state = {
@@ -21,10 +22,21 @@ class Sprite extends Component{
     };
   }
 
+  componentDidUpdate() {
+    const image = new window.Image();
+    image.src = this.props.sprite.url
+    image.onload = () => {
+      this.setState({
+        image: image
+      });
+    };
+  }
+
   handleDragStart = () => {
     this.setState({
       isDragging: true
     })
+    this.props.selectSprite(this.props.sprite)
   }
 
   handleDragEnd = () => {
@@ -47,9 +59,13 @@ class Sprite extends Component{
     document.body.style.cursor = 'default'
   }
 
+  handleSelect = () => {
+    this.props.selectSprite(this.props.sprite)
+  }
+
   render(){
-    console.log('sprite state',this.state)
-    console.log(document.body.style.cursor)
+    // console.log('sprite state',this.state)
+    // console.log('sprite props',this.props)
     return(
       <Image image={this.state.image}
           x={1}
@@ -64,6 +80,7 @@ class Sprite extends Component{
           strokeEnabled={this.state.hover ? true : false}
           onMouseOver={(e) => this.handleHover(e)}
           onMouseOut={(e) => this.handleHoverOut(e)}
+          onClick={this.handleSelect}
           />
     )
   }
@@ -71,13 +88,15 @@ class Sprite extends Component{
 
 function mapStateToProps(state) {
   return {
-    
+
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-
+    selectSprite: (selectedSprite) => {
+      dispatch(selectSprite(selectedSprite))
+    }
   }
 }
 

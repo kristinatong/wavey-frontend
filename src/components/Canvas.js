@@ -1,35 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 // import * as actions from '../redux/actions';
-import changeSprite from '../actions/actions'
+// import { changeSprite } from '../actions/sprite'
 // import Konva from 'konva';
 import { Stage, Layer, Image } from 'react-konva';
 import SpriteList from './SpriteList'
 
 
 class Canvas extends Component {
-
-  // handleDragStart = e => {
-  //   e.target.setAttrs({
-  //     shadowOffset: {
-  //       x: 15,
-  //       y: 15
-  //     },
-  //     scaleX: 1.1,
-  //     scaleY: 1.1
-  //   });
-  // };
-  //
-  // handleDragEnd = e => {
-  //   e.target.to({
-  //     duration: 0.5,
-  //     easing: Konva.Easings.ElasticEaseOut,
-  //     scaleX: 1,
-  //     scaleY: 1,
-  //     shadowOffsetX: 5,
-  //     shadowOffsetY: 5
-  //   });
-  // };
 
   onDragStart = (ev) => {
     console.log(this.props.sprites)
@@ -72,11 +50,11 @@ class Canvas extends Component {
     //       onDragStart = {(e) => this.onDragStart(e)} draggable onDrop={this.onDrop}/>
     //   </Fragment>
     // )
-    
+
     return(
       <Stage style={stageStyle} width={700} height={525}>
         <Layer>
-          <SpriteList canvasSprites={this.props.canvasSprites}/>
+          <SpriteList/>
         </Layer>
       </Stage>
     )
@@ -90,11 +68,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch){
-  return{
-    changeSprite: (x,y) => {
-      dispatch(changeSprite(x,y))
-    }
-  }
+  return {}
+  // return{
+  //   changeSprite: (x,y) => {
+  //     dispatch(changeSprite(x,y))
+  //   }
+  // }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Canvas);
