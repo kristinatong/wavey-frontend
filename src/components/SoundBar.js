@@ -14,7 +14,13 @@ class SoundBar extends Component{
   }
 
   selectSound = (sound) => {
-    this.props.selectSound(sound, this.props.selectedSprite.uniqueKey)
+    fetch(`http://localhost:3000/api/v1/sounds/${sound.id}`)
+      .then(r => r.json())
+      .then(data => {
+        // url: data.url
+        this.props.selectSound(sound, this.props.selectedSprite.uniqueKey,data.url)
+      })
+    // this.props.selectSound(sound, this.props.selectedSprite.uniqueKey)
   }
 
   renderSounds = () => {

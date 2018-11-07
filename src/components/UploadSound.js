@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { setSounds } from '../actions/sound'
 
 class UploadSound extends Component{
   state = {
     name: "",
     file: null,
-    fileURL: null,
+    url: null,
   };
 
   handleSubmit = event => {
@@ -18,8 +20,9 @@ class UploadSound extends Component{
       body: data,
     })
       .then(res => res.json())
-      .then(json => {
-        this.setState({ fileURL: json.url });
+      .then(data => {
+        this.setState({ url: data[data.length-1].url });
+        this.props.setSounds(data)
       });
   };
 
@@ -59,11 +62,11 @@ class UploadSound extends Component{
   }
 }
 
-// function mapStateToProps(state) {
-//   return {
-//
-//   }
-// }
+function mapStateToProps(state) {
+  return {
+    sounds: state.sound.sounds
+  }
+}
 //
 // function mapDispatchToProps(dispatch){
 //   return {
@@ -71,5 +74,5 @@ class UploadSound extends Component{
 //   }
 // }
 //
-// export default connect(mapStateToProps, mapDispatchToProps)(Player);
-export default UploadSound
+export default connect(mapStateToProps, { setSounds })(UploadSound);
+// export default UploadSound

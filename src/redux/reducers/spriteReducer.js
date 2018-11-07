@@ -25,7 +25,7 @@ export default function spriteReducer(state = initialSpriteState, action) {
       sprite = state.canvasSprites[index]
       return {
         ...state,
-        selectedSprite: {...state.selectedSprite, selectedSound: action.payload.selectedSound},
+        selectedSprite: {...state.selectedSprite, selectedSound: {...action.payload.selectedSound, url: action.payload.url}},
         canvasSprites: [
         ...state.canvasSprites.splice(0, index),
         Object.assign({}, sprite, { selectedSound: action.payload.selectedSound }),

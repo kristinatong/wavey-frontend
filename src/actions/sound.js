@@ -12,12 +12,13 @@ export function playSound() {
   }
 }
 
-export function selectSound(selectedSound, uniqueKey) {
+export function selectSound(selectedSound, uniqueKey, url) {
   return {
     type: 'SELECT_SOUND',
     payload: {
       selectedSound: selectedSound,
-      uniqueKey: uniqueKey
+      uniqueKey: uniqueKey,
+      url: url
     }
   }
 }

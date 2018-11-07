@@ -16,8 +16,8 @@ export default function soundReducer(state = initialSoundState, action) {
       return {...state, sounds: action.sounds}
     case 'PLAY_SOUND':
       return {}
-    case 'SELECT_SOUND':
-      return {...state, selectedSound: action.payload.selectedSound}
+    // case 'SELECT_SOUND':
+    //   return {...state, selectedSound: {...action.payload.selectedSound, url: action.payload.url}}
     default:
       return state;
   }
