@@ -15,10 +15,6 @@ export function playSound() {
 export function selectSound(selectedSound, uniqueKey, url) {
   return {
     type: 'SELECT_SOUND',
-    payload: {
-      selectedSound: selectedSound,
-      uniqueKey: uniqueKey,
-      url: url
-    }
+    payload: {selectedSound, uniqueKey, url}
   }
 }

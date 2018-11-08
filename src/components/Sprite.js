@@ -3,40 +3,43 @@ import { connect } from 'react-redux';
 // import * as actions from '../actions/actions';
 // import Konva from 'konva';
 import { Image } from 'react-konva';
-import { selectSprite } from '../actions/sprite'
+// import { selectSprite } from '../actions/sprite'
+import * as actions from '../actions/sprite'
 
 class Sprite extends Component{
   state = {
     image: null,
     isDragging: false,
-    hover: false
+    hover: false,
+    uniqueKey: null
   }
 
   componentDidMount() {
     const image = new window.Image();
-    image.src = this.props.sprite.url
+    image.src = this.props.selectedSprite.sprite.url
     image.onload = () => {
       this.setState({
-        image: image
+        image: image,
+        uniqueKey: this.props.selectedSprite.uniqueKey
       });
     };
   }
 
-  componentDidUpdate() {
-    const image = new window.Image();
-    image.src = this.props.sprite.url
-    image.onload = () => {
-      this.setState({
-        image: image
-      });
-    };
-  }
+  // componentDidUpdate() {
+    // const image = new window.Image();
+    // image.src = this.props.selectedSprite.sprite.url
+    // image.onload = () => {
+    //   this.setState({
+    //     image: image
+    //   });
+    // };
+  // }
 
   handleDragStart = () => {
     this.setState({
       isDragging: true
     })
-    this.props.selectSprite(this.props.sprite)
+    this.props.selectSprite(this.state.uniqueKey)
   }
 
   handleDragEnd = () => {
@@ -49,24 +52,23 @@ class Sprite extends Component{
     this.setState({
       hover: true
     })
-    document.body.style.cursor = 'pointer'
+    // document.body.style.cursor = 'pointer'
   }
 
   handleHoverOut = (e) => {
     this.setState({
       hover: false
     })
-    document.body.style.cursor = 'default'
+    // document.body.style.cursor = 'default'
   }
 
   handleSelect = () => {
-    debugger
-    this.props.selectSprite(this.props.sprite)
+    this.props.selectSprite(this.state.uniqueKey)
   }
 
   render(){
-    // console.log('sprite state',this.state)
-    // console.log('sprite props',this.props)
+    console.log('SPRITE PROPS', this.props)
+    console.log('SPRITE STATE', this.state)
     return(
       <Image image={this.state.image}
           x={1}
@@ -75,13 +77,13 @@ class Sprite extends Component{
           height={100}
           stroke='red'
           strokeWidth={5}
-          draggable
-          onDragStart={this.handleDragStart}
+          onClick={this.handleSelect}
           onDragEnd={this.handleDragEnd}
-          strokeEnabled={this.state.hover ? true : false}
+          onDragStart={this.handleDragStart}
           onMouseOver={(e) => this.handleHover(e)}
           onMouseOut={(e) => this.handleHoverOut(e)}
-          onClick={this.handleSelect}
+          draggable
+          strokeEnabled={this.state.hover ? true : false}
           />
     )
   }
@@ -89,16 +91,17 @@ class Sprite extends Component{
 
 function mapStateToProps(state) {
   return {
-
+    selectedSprite: state.sprite.selectedSprite,
+    canvasSprites: state.sprite.canvasSprites
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    selectSprite: (selectedSprite) => {
-      dispatch(selectSprite(selectedSprite))
-    }
-  }
-}
+// function mapDispatchToProps(dispatch){
+//   return {
+//     selectSprite: (selectedSprite) => {
+//       dispatch(selectSprite(selectedSprite))
+//     }
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Sprite);
+export default connect(mapStateToProps, actions)(Sprite);

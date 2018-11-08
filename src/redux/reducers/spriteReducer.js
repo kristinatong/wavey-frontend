@@ -14,23 +14,25 @@ export default function spriteReducer(state = initialSpriteState, action) {
   let index
   let sprite
   switch(action.type) {
-    case 'CHANGE_SPRITE':
-      return {...state, sprites: [...state.sprites, action.payload] };
+    // case 'CHANGE_SPRITE':
+    //   return {...state, sprites: [...state.sprites, action.payload] };
     case 'ADD_SPRITE':
-      return {...state, canvasSprites: [...state.canvasSprites, action.payload.selectedSprite]}
+      return {...state, canvasSprites: [...state.canvasSprites, action.sprite], selectedSprite:action.sprite}
     case 'SELECT_SPRITE':
-      return {...state, selectedSprite: action.payload.selectedSprite}
+      const findSprite = state.canvasSprites.find(sprite => sprite.uniqueKey === action.uniqueKey)
+      return {...state, selectedSprite: findSprite}
     case 'SELECT_SOUND':
       index = state.canvasSprites.findIndex( sprite => sprite.uniqueKey === action.payload.uniqueKey)
       sprite = state.canvasSprites[index]
       return {
         ...state,
-        selectedSprite: {...state.selectedSprite, selectedSound: {...action.payload.selectedSound, url: action.payload.url}},
+        selectedSprite: {...state.selectedSprite, sound: {...action.payload.selectedSound, url: action.payload.url}},
         canvasSprites: [
-        ...state.canvasSprites.splice(0, index),
-        Object.assign({}, sprite, { selectedSound: action.payload.selectedSound }),
-        ...state.canvasSprites.splice(index + 1)
-      ]}
+          ...state.canvasSprites.slice(0,index),
+          Object.assign({},sprite,{sound:{...action.payload.selectedSound,url:action.payload.url}}),
+          ...state.canvasSprites.slice(index+1)
+        ]
+    }
     default:
       return state;
   }

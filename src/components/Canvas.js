@@ -3,38 +3,37 @@ import { connect } from 'react-redux';
 // import * as actions from '../redux/actions';
 // import { changeSprite } from '../actions/sprite'
 // import Konva from 'konva';
-import { Stage, Layer, Image } from 'react-konva';
+import { Stage, Layer } from 'react-konva';
 import SpriteList from './SpriteList'
 
 
 class Canvas extends Component {
 
-  onDragStart = (ev) => {
-    console.log(this.props.sprites)
-    // console.log('dragstart:', id);
-    // ev.dataTransfer.setData("id", id);
-  }
-
-  onDragOver = (ev) => {
-    ev.preventDefault();
-  }
-
-
-  onDrop = (e) => {
-    e.persist()
-    let xStart = e.clientX-350
-    let yStart = e.clientY-120
-    const ctx = this.refs.spriteLayer.getContext('2d');
-    var img = new Image()
-    img.src = e.dataTransfer.getData("id")
-    img.onload = function () {
-      ctx.drawImage(img,xStart,yStart,80,80);
-    }
-    this.props.changeSprite(xStart,yStart)
-  }
+  // onDragStart = (ev) => {
+  //   console.log(this.props.sprites)
+  //   // console.log('dragstart:', id);
+  //   // ev.dataTransfer.setData("id", id);
+  // }
+  //
+  // onDragOver = (ev) => {
+  //   ev.preventDefault();
+  // }
+  //
+  //
+  // onDrop = (e) => {
+  //   e.persist()
+  //   let xStart = e.clientX-350
+  //   let yStart = e.clientY-120
+  //   const ctx = this.refs.spriteLayer.getContext('2d');
+  //   var img = new Image()
+  //   img.src = e.dataTransfer.getData("id")
+  //   img.onload = function () {
+  //     ctx.drawImage(img,xStart,yStart,80,80);
+  //   }
+  //   this.props.changeSprite(xStart,yStart)
+  // }
 
   render(){
-    console.log('canvas props', this.props)
     const stageStyle = {
       position: 'absolute',
       left: '20%',
@@ -63,17 +62,11 @@ class Canvas extends Component {
 
 function mapStateToProps(state) {
   return {
-    canvasSprites: state.sprite.canvasSprites,
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {}
-  // return{
-  //   changeSprite: (x,y) => {
-  //     dispatch(changeSprite(x,y))
-  //   }
-  // }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Canvas);

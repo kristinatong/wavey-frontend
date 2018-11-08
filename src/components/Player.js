@@ -5,16 +5,17 @@ import ReactPlayer from 'react-player'
 class Player extends Component{
 
   render(){
-    console.log('SOUND PROPS', this.props)
+    console.log('PLAYER PROPS',this.props)
     const playerStyle =  {
       position: 'absolute',
       bottom:'30px',
       left:'40%',
       border: '1px dotted'
     }
-    if(this.props.selectedSprite.selectedSound){
+
+    if(this.props.selectedSprite.sound){
       return(
-          <ReactPlayer style={playerStyle} width={300} height={50} url={this.props.selectedSprite.selectedSound.url} playing controls={true}/>
+          <ReactPlayer style={playerStyle} width={300} height={50} url={this.props.selectedSprite.sound.url} playing controls={true}/>
       )
     }else{
       return null

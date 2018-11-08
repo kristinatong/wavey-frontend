@@ -5,6 +5,9 @@ import * as actions from '../actions/sound';
 // import { selectSound, setSounds } from '../actions/sound'
 
 class SoundBar extends Component{
+  state = {
+    selectedSoundBar: null
+  }
   componentDidMount(){
     fetch('http://localhost:3000/api/v1/sounds')
       .then(r => r.json())
@@ -18,19 +21,21 @@ class SoundBar extends Component{
       .then(r => r.json())
       .then(data => {
         // url: data.url
-        this.props.selectSound(sound, this.props.selectedSprite.uniqueKey,data.url)
+        this.props.selectSound(sound, this.props.selectedSprite.uniqueKey, data.url)
       })
+    this.setState({
+      selectedSoundBar: sound
+    })
     // this.props.selectSound(sound, this.props.selectedSprite.uniqueKey)
   }
 
   renderSounds = () => {
     return this.props.sounds.map(sound => {
-      return <li key={sound.id} onClick={() => this.selectSound(sound)}>{sound.name}</li>
+      return <li key={sound.id} style={this.state.selectedSoundBar == sound ? {border:"1px solid red"} : null} onClick={() => this.selectSound(sound)}>{sound.name}</li>
     })
   }
 
   render(){
-    console.log('sound bar props',this.props)
     const soundStyle = {
       position: 'absolute',
       right: '0',
