@@ -10,7 +10,7 @@ class ControlBar extends Component{
 
   componentDidUpdate() {
     const image = new window.Image();
-    image.src = this.props.selectedSprite.url
+    image.src = this.props.selectedSprite.sprite.url
     image.onload = () => {
       this.setState({
         ctrlImage: image

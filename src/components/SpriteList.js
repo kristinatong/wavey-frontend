@@ -9,12 +9,11 @@ import Sprite from './Sprite'
 class SpriteList extends Component{
 
   renderSprites = () => {
-    return this.props.canvasSprites.map(sprite => <Sprite key={sprite.uniqueKey} sprite={sprite}/>)
+    // return this.props.canvasSprites.map(sprite => <Sprite key={sprite.uniqueKey} sprite={sprite}/>)
+    return this.props.canvasSprites.map(sprite => <Sprite key={sprite.uniqueKey}/>)
   }
 
   render(){
-    console.log('sprite list props',this.props)
-
     return(
       <Fragment>
         {this.renderSprites()}
