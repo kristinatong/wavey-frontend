@@ -54,7 +54,6 @@ class SoundBar extends Component{
 function mapStateToProps(state) {
   return {
     sounds: state.sound.sounds,
-    selectedSound: state.sound.selectedSound,
     selectedSprite: state.sprite.selectedSprite
   }
 }

@@ -60,6 +60,7 @@ class Sprite extends Component{
   }
 
   handleSelect = () => {
+    debugger
     this.props.selectSprite(this.props.sprite)
   }
 
