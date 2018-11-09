@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/sound';
 // import { Stage, Layer, Text, Image } from 'react-konva';
 // import { selectSound, setSounds } from '../actions/sound'
+import { API_ENDPOINT } from '../adapters/index'
 
 class SoundBar extends Component{
   state = {
     selectedSoundBar: null
   }
+
   componentDidMount(){
-    fetch('http://localhost:3000/api/v1/sounds')
+    fetch(`${API_ENDPOINT}/api/v1/sounds`)
       .then(r => r.json())
       .then(sounds => {
         this.props.setSounds(sounds)
@@ -17,7 +19,7 @@ class SoundBar extends Component{
   }
 
   selectSound = (sound) => {
-    fetch(`http://localhost:3000/api/v1/sounds/${sound.id}`)
+    fetch(`${API_ENDPOINT}/api/v1/sounds/${sound.id}`)
       .then(r => r.json())
       .then(data => {
         // url: data.url

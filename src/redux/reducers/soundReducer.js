@@ -1,4 +1,4 @@
-const initialSoundState = {
+const defaultSoundState = {
   // sounds: [
   //   {id:1, name: 'bodak yellow', url: 'http://1604ent.com/wp-content/uploads/2017/10/Cardi_B_-_Bodak_Yellow_1604Ent.com.mp3'},
   //   {id:2, name: 'in my feelings', url: 'http://1604ent.com/wp-content/uploads/2018/08/Drake_-_In_My_Feelings_1604Ent.com.mp3'},
@@ -10,7 +10,7 @@ const initialSoundState = {
   selectedSound: {}
 };
 
-export default function soundReducer(state = initialSoundState, action) {
+export default function soundReducer(state = defaultSoundState, action) {
   switch(action.type) {
     case 'SET_SOUNDS':
       return {...state, sounds: action.sounds}

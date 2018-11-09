@@ -1,4 +1,4 @@
-const initialSpriteState = {
+const defaultSpriteState = {
   // sprites: [
   //   {id:1, name: 'guitar', url: 'https://image.flaticon.com/icons/png/128/26/26843.png'},
   //   {id:2, name: 'drums', url: 'https://image.flaticon.com/icons/svg/27/27328.svg'},
@@ -11,7 +11,7 @@ const initialSpriteState = {
   selectedSprite: {}
 };
 
-export default function spriteReducer(state = initialSpriteState, action) {
+export default function spriteReducer(state = defaultSpriteState, action) {
   let index
   let sprite
   switch(action.type) {

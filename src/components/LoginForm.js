@@ -6,18 +6,18 @@ import { loginUser } from '../actions/user'
 import { Button, Form, Segment, Message } from 'semantic-ui-react'
 
 class LoginForm extends React.Component {
-  state = { username: '', password: '' }
+  state = { email: '', password: '' }
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
   // handleChange = (e, semanticInputData) => {
-  //   // semanticInputData.name -> 'username'
+  //   // semanticInputData.name -> 'email'
   //   this.setState({ [semanticInputData.name]: semanticInputData.value })
   // }
 
   handleLoginSubmit = () => { //semantic forms preventDefault for you
-    this.props.loginUser(this.state.username, this.state.password) //comes from mapDispatchToProps
-    this.setState({ username: '', password: '' }) //reset form to initial state
+    this.props.loginUser(this.state.email, this.state.password) //comes from mapDispatchToProps
+    this.setState({ email: '', password: '' }) //reset form to initial state
   }
 
   render() {
@@ -36,11 +36,11 @@ class LoginForm extends React.Component {
           <Message error header={this.props.failedLogin ? this.props.error : null} />
           <Form.Group widths="equal">
             <Form.Input
-              label="username"
-              placeholder="username"
-              name="username"
+              label="email"
+              placeholder="email"
+              name="email"
               onChange={this.handleChange}
-              value={this.state.username}
+              value={this.state.email}
             />
             <Form.Input
               type="password"
@@ -69,17 +69,26 @@ class LoginForm extends React.Component {
 // }
 
 // which pieces of the reduxStoreState does this component care about????
-const mapStateToProps = ({ usersReducer: { authenticatingUser, failedLogin, error, loggedIn } }) => ({
-  authenticatingUser,
-  failedLogin,
-  error,
-  loggedIn
-})
+// const mapStateToProps = ({usersReducer: { authenticatingUser, failedLogin, error, loggedIn } }) => ({
+//   authenticatingUser,
+//   failedLogin,
+//   error,
+//   loggedIn
+// })
+
+const mapStateToProps = (state) => {
+  return {
+    authenticatingUser: state.user.authenticatingUser,
+    failedLogin: state.user.failedLogin,
+    error: state.user.error,
+    loggedIn: state.user.loggedIn
+  }
+}
 
 // gives my component props (callback fns) that allow it to dispatch (SEND) actions to redux. these actions are then handled by my reducers
 // const mapDispatchToProps = (dispatch) => {
 //   return {
-//     loginUser: (username, password) => dispatch(loginUser(username, password))
+//     loginUser: (email, password) => dispatch(loginUser(email, password))
 //   }
 // }
 

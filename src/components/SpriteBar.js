@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 // import { addSprite } from '../actions/sprite'
 import * as actions from '../actions/sprite'
 import UUID from 'uuid'
+import { API_ENDPOINT } from '../adapters/index'
 
 class SpriteBar extends Component{
   state = {
@@ -12,10 +13,9 @@ class SpriteBar extends Component{
   }
 
   componentDidMount(){
-    fetch('http://localhost:3000/api/v1/sprites')
+    fetch(`${API_ENDPOINT}/api/v1/sprites`)
       .then(r => r.json())
       .then(sprites => {
-        debugger
         this.props.setSprites(sprites)
       })
   }
