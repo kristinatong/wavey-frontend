@@ -1,3 +1,10 @@
+export function setSprites(sprites){
+  return {
+    type:'SET_SPRITES',
+    sprites
+  }
+}
+
 export function addSprite(sprite){
   return {
     type:'ADD_SPRITE',

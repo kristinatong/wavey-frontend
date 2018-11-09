@@ -11,6 +11,15 @@ class SpriteBar extends Component{
     selectedSpriteBar: null
   }
 
+  componentDidMount(){
+    fetch('http://localhost:3000/api/v1/sprites')
+      .then(r => r.json())
+      .then(sprites => {
+        debugger
+        this.props.setSprites(sprites)
+      })
+  }
+
   selectSprite = (sprite) => {
     this.setState({
       selectedSpriteBar: sprite
