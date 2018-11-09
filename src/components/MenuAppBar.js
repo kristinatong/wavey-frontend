@@ -7,11 +7,21 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
+// import Switch from '@material-ui/core/Switch';
+// import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { connect } from 'react-redux'
+// import withAuth from '../hocs/withAuth'
+import { Redirect } from 'react-router-dom'
+import * as userActions from '../actions/user'
+
+window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
+//The material design specification changed concerning variant names and styles.
+//To allow a smooth transition we kept old variants and restyled variants for
+//backwards compatibility but we log deprecation warnings. We will remove the
+//old typography variants in the next major release v4.0.0 (Q1 2019).
 
 const styles = {
   root: {
@@ -28,38 +38,58 @@ const styles = {
 
 class MenuAppBar extends React.Component {
   state = {
-    auth: true,
+    // auth: true,
     anchorEl: null,
+    redirect: false
   };
 
-  handleChange = event => {
-    this.setState({ auth: event.target.checked });
-  };
+  // handleChange = event => {
+  //   this.setState({ auth: event.target.checked });
+  // };
 
   handleMenu = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
   handleClose = () => {
-    this.setState({ anchorEl: null });
+    this.setState({
+      anchorEl: null,
+      redirect: true
+    });
   };
+
+  logOut = () => {
+    this.setState({
+      anchorEl: null,
+      redirect: true
+    });
+    this.props.logOut()
+
+  }
+
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to='/' />
+    }
+  }
 
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
-    const open = Boolean(anchorEl);
+    // const { auth, anchorEl } = this.state;
+    const open = Boolean(this.state.anchorEl);
 
     return (
       <div className={classes.root}>
+        {this.renderRedirect()}
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              Photos
+              Draw Sound
             </Typography>
-            {auth && (
+            {this.props.loggedIn && (
               <div>
                 <IconButton
                   aria-owns={open ? 'menu-appbar' : undefined}
@@ -71,7 +101,7 @@ class MenuAppBar extends React.Component {
                 </IconButton>
                 <Menu
                   id="menu-appbar"
-                  anchorEl={anchorEl}
+                  anchorEl={this.state.anchorEl}
                   anchorOrigin={{
                     vertical: 'top',
                     horizontal: 'right',
@@ -85,6 +115,7 @@ class MenuAppBar extends React.Component {
                 >
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={this.logOut}>Log Out</MenuItem>
                 </Menu>
               </div>
             )}
@@ -99,4 +130,15 @@ MenuAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MenuAppBar);
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.user.loggedIn
+  }
+}
+
+// export default withStyles(styles)(MenuAppBar);
+
+const connectedToReduxHOC = connect(mapStateToProps, userActions)
+const connectedMenu = connectedToReduxHOC(MenuAppBar)
+const withStylesMenu = withStyles(styles)(connectedMenu)
+export default withStylesMenu

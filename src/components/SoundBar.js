@@ -33,7 +33,7 @@ class SoundBar extends Component{
 
   renderSounds = () => {
     return this.props.sounds.map(sound => {
-      return <li key={sound.id} style={this.state.selectedSoundBar == sound ? {border:"1px solid red"} : null} onClick={() => this.selectSound(sound)}>{sound.name}</li>
+      return <li key={sound.id} style={this.state.selectedSoundBar === sound ? {border:"1px solid red"} : null} onClick={() => this.selectSound(sound)}>{sound.name}</li>
     })
   }
 

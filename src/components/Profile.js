@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Card, Image } from 'semantic-ui-react'
+// import { Card, Image } from 'semantic-ui-react'
 import withAuth from '../hocs/withAuth'
 
 // props: { user: { avatar: 'url', username: 'Chandler Bing', bio: 'bio' } }
@@ -25,11 +25,13 @@ const Profile = ({ avatar, username, bio }) => (
 //   }
 // }
 
-const mapStateToProps = ({ usersReducer: { user: { avatar, username, bio } } }) => ({
-  avatar,
-  username,
-  bio
-})
+const mapStateToProps = (state) => {
+  return {
+    // email: state.user.user.email,
+    // firstName: state.user.user.first_name,
+    // lastName: state.user.user.last_name
+  }
+}
 
 // const connectedToReduxHOC = connect(mapStateToProps)
 // const connectedProfile = connectedToReduxHOC(Profile)

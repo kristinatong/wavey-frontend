@@ -1,12 +1,13 @@
-import { API_ENDPOINT } from '../adapters/index'
+// import { API_ENDPOINT } from '../adapters/index'
 
 export const /*FUNCTION*/ loginUser = (email, password) => {
+  debugger
   return /*FUNCTION*/ (dispatch) => { //thunk
     // console.log(process.env.REACT_APP_API_ENDPOINT)
     // dispatch({ type: 'AUTHENTICATING_USER' })
     dispatch(authenticatingUser())
     // fetch(`${process.env.REACT_APP_API_ENDPOINT}/api/v1/login`)
-    fetch(`${API_ENDPOINT}/api/v1/login`, { //TODO: move this to an adapter
+    fetch(`http://localhost:4000/api/v1/login`, { //TODO: move this to an adapter
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -48,7 +49,7 @@ export const fetchCurrentUser = () => {
   // takes the token in localStorage and finds out who it belongs to
   return (dispatch) => {
     dispatch(authenticatingUser()) //tells the app we are fetching
-    fetch(`${API_ENDPOINT}/api/v1/profile`, {
+    fetch(`http://localhost:4000/api/v1/profile`, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${localStorage.getItem('jwt')}`
@@ -63,6 +64,13 @@ export const setCurrentUser = (userData) => ({
   type: 'SET_CURRENT_USER',
   payload: userData
 })
+
+export const logOut = () => {
+  localStorage.removeItem('jwt')
+  return {
+    type: 'LOG_OUT'
+  }
+}
 
 export const failedLogin = (errorMsg) => ({
   type: 'FAILED_LOGIN',

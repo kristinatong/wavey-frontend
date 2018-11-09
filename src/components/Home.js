@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
-// import * as actions from '../actions/index';
+import { Redirect } from 'react-router-dom'
 import '../assets/css/App.css';
 import SpriteBar from './SpriteBar'
 import Canvas from './Canvas'
@@ -9,10 +8,10 @@ import SoundBar from './SoundBar'
 import ControlBar from './ControlBar'
 import Player from './Player'
 import UploadSound from './UploadSound'
+import withAuth from '../hocs/withAuth'
 
 class Home extends Component {
   render() {
-    console.log(this.props)
     return (
       <Fragment>
         <SpriteBar />
@@ -22,16 +21,16 @@ class Home extends Component {
         <Player />
         <UploadSound />
       </Fragment>
-    );
+    )
   }
 
 }
 
 function mapStateToProps(state) {
   return {
-    state: state
+    // loggedIn: state.user.loggedIn
   }
 }
 
 // export default App;
-export default connect(mapStateToProps)(Home);
+export default withAuth(connect(mapStateToProps)(Home));

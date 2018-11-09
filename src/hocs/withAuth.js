@@ -32,16 +32,16 @@ const withAuth = /*FUNCTION*/ (WrappedComponent) => {
 
   const mapStateToProps = /*FUNCTION*/ (reduxStoreState) => {
     return {
-      loggedIn: reduxStoreState.usersReducer.loggedIn,
-      authenticatingUser: reduxStoreState.usersReducer.authenticatingUser
+      loggedIn: reduxStoreState.user.loggedIn,
+      authenticatingUser: reduxStoreState.user.authenticatingUser
     }
   }
 
-  const mapDispatchToProps = /*FUNCTION*/ (dispatch) => {
-    return {
-      fetchCurrentUser: () => dispatch(fetchCurrentUser()), //dispatch is automagically provided by redux
-    }
-  }
+  // const mapDispatchToProps = /*FUNCTION*/ (dispatch) => {
+  //   return {
+  //     fetchCurrentUser: () => dispatch(fetchCurrentUser()), //dispatch is automagically provided by redux
+  //   }
+  // }
   //
   // const connectedToReduxHOC = connect(mapStateToProps, mapDispatchToProps)
   // const connectedAuthorizedComponent = connectedToReduxHOC(AuthorizedComponent)

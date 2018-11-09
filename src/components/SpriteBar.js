@@ -30,7 +30,7 @@ class SpriteBar extends Component{
     return this.props.sprites.map(sprite => {
       return (
         <Fragment key={sprite.id}>
-          <img style={this.state.selectedSpriteBar == sprite ? {width:'100px', height:'100px', border:"5px solid red"} : {width:'100px', height:'100px'}} src={sprite.url} onClick={() => this.selectSprite(sprite)} alt={sprite.name} /><br/>
+          <img style={this.state.selectedSpriteBar === sprite ? {width:'100px', height:'100px', border:"5px solid red"} : {width:'100px', height:'100px'}} src={sprite.url} onClick={() => this.selectSprite(sprite)} alt={sprite.name} /><br/>
         </Fragment>
       )
       })
@@ -76,14 +76,14 @@ class SpriteBar extends Component{
       backgroundColor: '#EEEEEE',
       borderRight: '1px dotted'}
 
-    const spriteBarStyle = {
-      position: 'absolute',
-      // width: '150px',
-      // height: '100vh',
-      left: '0',
-      top: '10',
-      backgroundColor: '#EEEEEE',
-      borderRight: '1px dotted'}
+    // const spriteBarStyle = {
+    //   position: 'absolute',
+    //   // width: '150px',
+    //   // height: '100vh',
+    //   left: '0',
+    //   top: '10',
+    //   backgroundColor: '#EEEEEE',
+    //   borderRight: '1px dotted'}
 
 
     // return(
