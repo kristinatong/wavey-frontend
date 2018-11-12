@@ -20,14 +20,15 @@ class ControlBar extends Component{
 
   render(){
     const controlStyle =  {
-      position: 'absolute',
-      backgroundColor: '#EEEEEE',
-      bottom:'0px',
-      left:'20%',
-      border: '1px dotted'
+      // position: 'absolute',
+      backgroundColor: 'darkgray',
+      // bottom:'0px',
+      // left:'20%',
+      // border: '1px dotted'
     }
 
     return(
+      <div className="footer">
       <Stage style={controlStyle} width={600} height={120}>
         <Layer>
           <Text text='Control Bar'/>
@@ -38,6 +39,7 @@ class ControlBar extends Component{
               height={100}/>
         </Layer>
       </Stage>
+      </div>
     )
   }
 }

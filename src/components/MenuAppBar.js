@@ -16,6 +16,17 @@ import { connect } from 'react-redux'
 // import withAuth from '../hocs/withAuth'
 import { Redirect } from 'react-router-dom'
 import * as userActions from '../actions/user'
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+// const muiTheme = getMuiTheme({
+//   palette: {
+//     textColor: 'red',
+//   },
+//   appBar: {
+//     height: 50,
+//   },
+// });
 
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 //The material design specification changed concerning variant names and styles.
@@ -54,22 +65,28 @@ class MenuAppBar extends React.Component {
   handleClose = () => {
     this.setState({
       anchorEl: null,
-      redirect: true
+      redirect: false
     });
   };
 
   logOut = () => {
     this.setState({
       anchorEl: null,
-      redirect: true
+      redirect: '/'
     });
     this.props.logOut()
+  }
 
+  profile = () => {
+    this.setState({
+      anchorEl: null,
+      redirect: '/profile'
+    });
   }
 
   renderRedirect = () => {
     if (this.state.redirect) {
-      return <Redirect to='/' />
+      return <Redirect to={this.state.redirect} />
     }
   }
 
@@ -81,7 +98,7 @@ class MenuAppBar extends React.Component {
     return (
       <div className={classes.root}>
         {this.renderRedirect()}
-        <AppBar position="static">
+        <AppBar style={{backgroundColor: '#9C9292', height:'1'}} position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
@@ -113,8 +130,7 @@ class MenuAppBar extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={this.profile}>Profile</MenuItem>
                   <MenuItem onClick={this.logOut}>Log Out</MenuItem>
                 </Menu>
               </div>

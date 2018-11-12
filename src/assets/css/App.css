@@ -1,10 +1,5 @@
-.App {
+/* .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
 }
 
 .App-header {
@@ -30,3 +25,76 @@
     transform: rotate(360deg);
   }
 }
+ */
+
+ .wrapper {
+   display: flex;
+   flex-flow: row wrap;
+   /* flex-direction: row;
+   flex-wrap: nowrap; */
+   font-weight: bold;
+   text-align: center;
+ }
+
+ .wrapper > * {
+   /* padding: 10px; */
+   flex: 1 100%;
+ }
+
+ .header {
+   background: tomato;
+ }
+
+ .footer {
+   background: #9C9292;
+ }
+
+ .main {
+   background: deepskyblue;
+   display: flex;
+   flex-flow: column wrap;
+   font-weight: bold;
+   text-align: center;
+ }
+
+ .maindiv {
+   background: lightgray;
+ }
+
+ .seconddiv {
+   background: blue;
+ }
+
+ .spritebar {
+   background: #D2AEAF;
+   display: flex;
+   flex-flow: column wrap;
+   width: 140px;
+ }
+
+ .sprite-navbar{
+   background: #AF6E6F;
+ }
+
+ .soundbar {
+   background: #D2AEAF;
+   display: flex;
+   flex-flow: column wrap;
+   width: 150px;
+ }
+
+  @media all and (min-width: 600px) {
+   .bar { flex: 1 0 auto; }
+ }
+
+  @media all and (min-width: 800px) {
+   .main    { flex: 50 0px; }
+   .spritebar { order: 1; }
+   .main    { order: 2; }
+   .soundbar { order: 3; }
+ }
+
+ body {
+   margin: 0;
+   padding: 0;
+ }

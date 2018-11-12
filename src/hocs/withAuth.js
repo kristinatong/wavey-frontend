@@ -6,7 +6,7 @@ import { fetchCurrentUser } from '../actions/user'
 import { Loader } from 'semantic-ui-react'
 
 // in this example, WrappedComponent is the Profile component
-const withAuth = /*FUNCTION*/ (WrappedComponent) => {
+const withAuth = (WrappedComponent) => {
   class AuthorizedComponent extends React.Component {
     componentDidMount() {
       // POTENTIAL SECURITY FLAW!!! my tokens don't expire

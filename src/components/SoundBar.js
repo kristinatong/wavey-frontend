@@ -7,7 +7,8 @@ import { API_ENDPOINT } from '../adapters/index'
 
 class SoundBar extends Component{
   state = {
-    selectedSoundBar: null
+    selectedSoundBar: null,
+    filterSounds: []
   }
 
   componentDidMount(){
@@ -48,7 +49,10 @@ class SoundBar extends Component{
       borderLeft: '1px dotted'}
 
     return(
-      <div style={soundStyle}>
+      <div className='bar soundbar'>
+        <div className="sprite-navbar">
+          All
+        </div>
         <h1>Sound Bar</h1>
         <ul>
           {this.renderSounds()}

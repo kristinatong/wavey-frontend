@@ -32,7 +32,7 @@ class App extends Component {
       <Fragment>
         <MenuAppBar />
         <Switch>
-          <Route exact path="/" render={() => <Redirect to="/profile" />} />
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/login" component={LoginForm} />
           <Route exact path="/profile" component={Profile} />
