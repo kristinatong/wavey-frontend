@@ -5,40 +5,76 @@ import { Stage, Layer, Text, Image } from 'react-konva';
 
 class ControlBar extends Component{
   state = {
-    ctrlImage: null
+    ctrlImage: null,
+    imageStatus: null,
+    url: ""
   }
 
   componentDidUpdate() {
     const image = new window.Image();
     image.src = this.props.selectedSprite.sprite.url
+    image.width = 100
+    image.height = 100
     image.onload = () => {
       this.setState({
         ctrlImage: image
       });
     };
+    // if(!Object.keys(this.props.selectedSprite === 0)){
+    //   this.setState({
+    //     url: this.props.selectedSprite.sprite.url
+    //   })
+    // }
+  }
+
+  handleImageLoaded() {
+    this.setState({ imageStatus: "loaded" });
+  }
+
+  handleImageErrored() {
+    this.setState({ imageStatus: "failed to load" });
   }
 
   render(){
-    const controlStyle =  {
-      // position: 'absolute',
-      backgroundColor: 'darkgray',
-      // bottom:'0px',
-      // left:'20%',
-      // border: '1px dotted'
-    }
+    console.log(this.state)
+    // const controlStyle =  {
+    //   // position: 'absolute',
+    //   backgroundColor: 'darkgray',
+    //   // bottom:'0px',
+    //   // left:'20%',
+    //   // border: '1px dotted'
+    //   alignSelf: 'flex-end'
+    // }
 
+    // width={600} height={120}
+
+    // return(
+    //   <div id="controlbar">
+    //     Control Bar
+    //     <Stage className='control-canvas' width={400} height={100}>
+    //       <Layer>
+    //         <Text text='Control Bar'/>
+    //         <Image image={this.state.ctrlImage}
+    //             x={100}
+    //             y={0}
+    //             width={90}
+    //             height={90}/>
+    //       </Layer>
+    //     </Stage>
+    //   </div>
+    // )
     return(
-      <div className="footer">
-      <Stage style={controlStyle} width={600} height={120}>
-        <Layer>
-          <Text text='Control Bar'/>
-          <Image image={this.state.ctrlImage}
-              x={50}
-              y={10}
-              width={100}
-              height={100}/>
-        </Layer>
-      </Stage>
+      <div id='controlbar'>
+          <Stage className='control-canvas' width={400} height={100}>
+            <Layer>
+              <Text text='Control Bar'/>
+              <Image image={this.state.ctrlImage}
+                  x={100}
+                  y={0}
+                  width={90}
+                  height={90}/>
+            </Layer>
+          </Stage>
       </div>
     )
   }

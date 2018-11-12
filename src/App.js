@@ -29,7 +29,7 @@ class App extends Component {
     //   </Fragment>
     // );
     return(
-      <Fragment>
+      <div className='vwrapper'>
         <MenuAppBar />
         <Switch>
           <Route exact path="/" render={() => <Redirect to="/home" />} />
@@ -37,7 +37,7 @@ class App extends Component {
           <Route exact path="/login" component={LoginForm} />
           <Route exact path="/profile" component={Profile} />
         </Switch>
-      </Fragment>
+      </div>
     )
   }
 

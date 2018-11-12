@@ -36,7 +36,7 @@ window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 
 const styles = {
   root: {
-    flexGrow: 1,
+    // flexGrow: 1,
   },
   grow: {
     flexGrow: 1,
@@ -139,6 +139,12 @@ class MenuAppBar extends React.Component {
         </AppBar>
       </div>
     );
+
+    // return(
+    //   <div id='row1'>
+    //     this is the header
+    //   </div>
+    // )
   }
 }
 

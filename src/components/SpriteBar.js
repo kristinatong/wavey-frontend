@@ -25,6 +25,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+// import {List, ListItem} from 'material-ui/List';
+// import {Paper} from 'material-ui/Paper'
 
 const styles = theme => ({
   root: {
@@ -155,14 +157,14 @@ class SpriteBar extends Component{
   }
 
   render(){
-    const divStyle = {
-      position: 'absolute',
-      width: '150px',
-      height: '100vh',
-      left: '0',
-      top: '10',
-      backgroundColor: '#EEEEEE',
-      borderRight: '1px dotted'}
+    // const divStyle = {
+    //   position: 'absolute',
+    //   width: '150px',
+    //   height: '100vh',
+    //   left: '0',
+    //   top: '10',
+    //   backgroundColor: '#EEEEEE',
+    //   borderRight: '1px dotted'}
 
     // const spriteBarStyle = {
     //   position: 'absolute',
@@ -182,46 +184,38 @@ class SpriteBar extends Component{
     //     <button onClick={this.props.addSprite}>Add Sprite</button>
     //   </div>
     // )
+          // <div className="bar spritebar">
+    // return(
+    //
+    //   <div id="spritebar">
+    //     <div className="sprite-navbar">
+    //       <FormControl className={styles.formControl}>
+    //       <InputLabel htmlFor="age-simple">Images</InputLabel>
+    //       <Select
+    //         value={this.state.age}
+    //         onChange={this.handleChange}
+    //         inputProps={{
+    //           name: 'age',
+    //           id: 'age-simple',
+    //         }}
+    //       >
+    //         <MenuItem value="">
+    //           <em>None</em>
+    //         </MenuItem>
+    //         <MenuItem value={10}>Ten</MenuItem>
+    //         <MenuItem value={20}>Twenty</MenuItem>
+    //         <MenuItem value={30}>Thirty</MenuItem>
+    //       </Select>
+    //     </FormControl>
+    //     </div>
+    //     <h3>Sprites</h3>
+    //     {this.sprites()}
+    //     <button onClick={this.addSpriteMethod}>Add Sprite</button>
+    //   </div>
+    // )
     return(
-      <div className="bar spritebar">
-        <div className="sprite-navbar">
-          <FormControl className={styles.formControl}>
-          <InputLabel htmlFor="age-simple">Images</InputLabel>
-          <Select
-            value={this.state.age}
-            onChange={this.handleChange}
-            inputProps={{
-              name: 'age',
-              id: 'age-simple',
-            }}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-          </Select>
-        </FormControl>
-        </div>
-        <h3>Sprites</h3>
-        {this.sprites()}
-        <button onClick={this.addSpriteMethod}>Add Sprite</button>
+      <div id='spritebar'>
       </div>
-      // <Stage style={spriteBarStyle} width={150} height={720}>
-      //   <Layer>
-      //     <Text text='Control Bar'/>
-      //     {this.sprites()}
-      //     <Rect
-      //       x={20}
-      //       y={50}
-      //       width={100}
-      //       height={100}
-      //       fill="red"
-      //       shadowBlur={10}
-      //     />
-      //   </Layer>
-      // </Stage>
     )
   }
 }

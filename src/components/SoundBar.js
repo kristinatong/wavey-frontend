@@ -39,17 +39,17 @@ class SoundBar extends Component{
   }
 
   render(){
-    const soundStyle = {
-      position: 'absolute',
-      right: '0',
-      top: '10',
-      width: '150px',
-      height: '100vh',
-      backgroundColor: '#EEEEEE',
-      borderLeft: '1px dotted'}
-
+    // const soundStyle = {
+    //   position: 'absolute',
+    //   right: '0',
+    //   top: '10',
+    //   width: '150px',
+    //   height: '100vh',
+    //   backgroundColor: '#EEEEEE',
+    //   borderLeft: '1px dotted'}
+// <div className='bar soundbar'>
     return(
-      <div className='bar soundbar'>
+      <div id='soundbar'>
         <div className="sprite-navbar">
           All
         </div>

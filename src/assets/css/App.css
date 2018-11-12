@@ -29,11 +29,12 @@
 
  .wrapper {
    display: flex;
-   flex-flow: row wrap;
+   flex-flow: row nowrap;
    /* flex-direction: row;
    flex-wrap: nowrap; */
    font-weight: bold;
    text-align: center;
+   height: 100%;
  }
 
  .wrapper > * {
@@ -41,60 +42,99 @@
    flex: 1 100%;
  }
 
- .header {
-   background: tomato;
- }
-
- .footer {
-   background: #9C9292;
- }
-
- .main {
-   background: deepskyblue;
-   display: flex;
-   flex-flow: column wrap;
-   font-weight: bold;
-   text-align: center;
- }
-
- .maindiv {
-   background: lightgray;
- }
-
- .seconddiv {
-   background: blue;
- }
-
- .spritebar {
-   background: #D2AEAF;
-   display: flex;
-   flex-flow: column wrap;
-   width: 140px;
- }
-
  .sprite-navbar{
    background: #AF6E6F;
  }
 
- .soundbar {
-   background: #D2AEAF;
-   display: flex;
-   flex-flow: column wrap;
-   width: 150px;
- }
-
-  @media all and (min-width: 600px) {
+  /* @media all and (min-width: 600px) {
    .bar { flex: 1 0 auto; }
  }
 
   @media all and (min-width: 800px) {
-   .main    { flex: 50 0px; }
+   .main    { flex: 50; }
    .spritebar { order: 1; }
    .main    { order: 2; }
    .soundbar { order: 3; }
- }
+   .canvas { order: 1;}
+   .controlbar { order: 2;}
+ } */
 
- body {
+ .vwrapper {
+  display: flex;
+  flex-direction: column;
+
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+
+  height: 100%;
+}
+
+  #row2 {
+     background-color: green;
+     flex: 1 1 auto;
+     display: flex;
+  }
+    #spritebar {
+      background: #D2AEAF;
+      /* flex: 1 0; */
+      width: 13%;
+      display: flex;
+      flex-flow: column nowrap;
+      /* align-content: center; */
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #main {
+      background: white;
+      flex-grow: 5;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between;
+    }
+
+    .canvas {
+      /* flex-basis: 600px; */
+      flex-grow: 4;
+      flex-shrink: 1;
+      /* flex-basis: auto; */
+    }
+
+      #controlbar {
+        background: gray;
+        /* flex-grow: 1; */
+        /* flex-shrink: 1; */
+        height: 20%;
+        width: 50%;
+      }
+
+      .control-canvas {
+        background: red;
+        height: 80%;
+        width: 50%;
+        margin-left: 10%;
+        /* margin-bottom: 2%; */
+      }
+
+    #soundbar {
+      background: #D2AEAF;
+      /* flex: 1 0; */
+      width: 13%;
+    }
+
+    @media all and (min-width: 800px) {
+     #spritebar { order: 1; }
+     #main    { order: 2; }
+     #soundbar { order: 3; }
+     .canvas { order: 1;}
+     #controlbar { order: 2;}
+   }
+
+ html, body, #root{
    margin: 0;
-   padding: 0;
+   /* padding: 0; */
+   /* width: 100%; */
+   height: 100%;
  }

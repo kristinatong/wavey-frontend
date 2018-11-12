@@ -24,7 +24,7 @@ class Home extends Component {
     //   </Fragment>
     // )
     return (
-      <div className="wrapper">
+      <div id="row2">
         <SpriteBar />
         <SoundBar />
         <Canvas />

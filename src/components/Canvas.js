@@ -37,15 +37,15 @@ class Canvas extends Component {
 
   render(){
     const stageStyle = {
-      position: 'absolute',
-      marginLeft: '5%',
-      justifyContent: 'center',
+      // position: 'absolute',
+      // marginLeft: '5%',
+      // justifyContent: 'center',
       // // width: '60%',
       // // height: '45%',
       // // minWidth: '100',
       // // minHeight: '75',
       // top: '20%',
-      backgroundColor: '#EEEEEE',
+      // backgroundColor: 'black',
       // border: '1px dotted'
     }
     // const stageStyle = {
@@ -62,14 +62,16 @@ class Canvas extends Component {
     //   </Fragment>
     // )
 
+    // width={480} height={360}
+// <div className='main'>
     return(
-      <div className='main'>
-        <Stage width={700} height={525}>
-          <Layer>
-            <SpriteList/>
-          </Layer>
-        </Stage>
-        <ControlBar/>
+      <div id='main'>
+          <Stage className='canvas'>
+            <Layer>
+              <SpriteList/>
+            </Layer>
+          </Stage>
+          <ControlBar/>
       </div>
     )
   }
