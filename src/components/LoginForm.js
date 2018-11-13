@@ -17,6 +17,9 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { colors } from '../App'
+import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   main: {
@@ -38,8 +41,9 @@ const styles = theme => ({
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
   avatar: {
-    margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
+    // margin: theme.spacing.unit,
+    // backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#915c75'
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -70,7 +74,6 @@ class LoginForm extends React.Component {
 
   handleLoginSubmit = (e) => { //semantic forms preventDefault for you
     e.preventDefault()
-    debugger
     console.log(this.state)
     this.props.loginUser(this.state.email, this.state.password) //comes from mapDispatchToProps
     this.setState({ email: '', password: '' }) //reset form to initial state
@@ -116,16 +119,18 @@ class LoginForm extends React.Component {
     return this.props.loggedIn ? (
       <Redirect to="/home" />
     ) : (
+      <MuiThemeProvider theme={colors}>
     <main className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockIcon />
+        <Avatar className={classes.avatar} >
+          <LockIcon color="secondary"/>
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
         <form className={classes.form} onSubmit={this.handleLoginSubmit} loading={this.props.authenticatingUser} error={this.props.failedLogin}>
+          {this.props.failedLogin ? <Message error header={this.props.error} /> : null}
           <FormControl margin="normal" required fullWidth>
             <InputLabel htmlFor="email">Email Address</InputLabel>
             <Input id="email" name="email" autoComplete="email" autoFocus onChange={this.handleChange} value={this.state.email}/>
@@ -138,14 +143,14 @@ class LoginForm extends React.Component {
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
-            className={classes.submit}
+            color="secondary"
           >
             Sign in
           </Button>
         </form>
       </Paper>
     </main>
+    </MuiThemeProvider>
   )
   }
 }

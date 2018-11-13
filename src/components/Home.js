@@ -28,7 +28,6 @@ class Home extends Component {
         <SpriteBar />
         <SoundBar />
         <Canvas />
-        <Player />
       </div>
     )
   }

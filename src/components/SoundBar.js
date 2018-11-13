@@ -101,7 +101,7 @@ const styles = theme => ({
 class SoundBar extends Component{
   state = {
     selectedSoundBar: null,
-    filterSounds: []
+    filterBy: 'all'
   }
 
   componentDidMount(){
@@ -113,86 +113,79 @@ class SoundBar extends Component{
   }
 
   selectSound = (sound) => {
-    fetch(`${API_ENDPOINT}/api/v1/sounds/${sound.id}`)
-      .then(r => r.json())
-      .then(data => {
-        // url: data.url
-        this.props.selectSound(sound, this.props.selectedSprite.uniqueKey, data.url)
+    if(!Object.keys(this.props.selectedSprite).length == 0){
+      fetch(`${API_ENDPOINT}/api/v1/sounds/${sound.id}`)
+        .then(r => r.json())
+        .then(data => {
+          this.props.selectSound(sound, this.props.selectedSprite.uniqueKey, data.url, false)
+        })
+      this.setState({
+        selectedSoundBar: sound
       })
-    this.setState({
-      selectedSoundBar: sound
-    })
-    // this.props.selectSound(sound, this.props.selectedSprite.uniqueKey)
+    }
   }
 
-  renderSounds = () => {
-    return this.props.sounds.map(sound => {
-      return <li key={sound.id} style={this.state.selectedSoundBar === sound ? {border:"1px solid red"} : null} onClick={() => this.selectSound(sound)}>{sound.name}</li>
+  sounds = () => {
+    let sounds;
+    if(this.state.filterBy === 'all'){
+      sounds = this.props.sounds
+    }else{
+      sounds = this.props.sounds.filter(sound => sound.sprite_type === this.state.filterBy)
+    }
+    return sounds.map(sound => {
+      return (
+        <List.Item key={sound.id} onClick={() => this.selectSound(sound)}>
+          <Image avatar src='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
+          <List.Content>
+            <List.Header>{sound.name}</List.Header>
+          </List.Content>
+        </List.Item>
+      )
     })
   }
+
+    getSoundTypes = () => {
+      return (
+        ['all',...new Set(this.props.sounds.map(item => item.sound_type))].map(type => {
+          return <MenuItem value={type}>{type.toUpperCase()}</MenuItem>
+        })
+      )
+    }
+
+    filterSounds = (e) => {
+      this.setState({
+        filterBy: e.target.value
+      })
+    }
 
   render(){
-    // const soundStyle = {
-    //   position: 'absolute',
-    //   right: '0',
-    //   top: '10',
-    //   width: '150px',
-    //   height: '100vh',
-    //   backgroundColor: '#EEEEEE',
-    //   borderLeft: '1px dotted'}
-// <div className='bar soundbar'>
-// <ul>
-//   {this.renderSounds()}
-// </ul>
+    console.log(this.state)
     return(
       <div id='soundbar'>
         <div className="sidebar-nav">
-          <FormControl className="filter">
-          <InputLabel shrink htmlFor="age-label-placeholder">
-              SOUNDS
-            </InputLabel>
-            <Select
-              value={this.state.age}
-              onChange={this.handleChange}
-              input={<Input name="age" id="age-label-placeholder" />}
-              displayEmpty
-              name="age"
-              className={styles.selectEmpty}
-            >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value='all'>All</MenuItem>
-              <MenuItem value='instruments'>Instruments</MenuItem>
-              <MenuItem value='custom'>Custom</MenuItem>
-            </Select>
-          </FormControl>
+        <FormControl className="filter">
+        <InputLabel shrink htmlFor="age-label-placeholder">
+            SOUNDS
+          </InputLabel>
+          <Select
+            value={this.state.filterBy}
+            onChange={this.filterSounds}
+            input={<Input name="filterBy" id="age-label-placeholder" />}
+            displayEmpty
+            name="age"
+          >
+            {this.getSoundTypes()}
+          </Select>
+      </FormControl>
         </div>
       <div id="sound-scroll">
       <List celled>
-        <List.Item>
-          <Image avatar src='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
-          <List.Content>
-            <List.Header>Snickerdoodle</List.Header>
-          </List.Content>
-        </List.Item>
-        <List.Item>
-          <Image avatar src='https://react.semantic-ui.com/images/avatar/small/daniel.jpg' />
-          <List.Content>
-            <List.Header>Poodle</List.Header>
-          </List.Content>
-        </List.Item>
-        <List.Item>
-          <Image avatar src='https://react.semantic-ui.com/images/avatar/small/daniel.jpg' />
-          <List.Content>
-            <List.Header>Paulo</List.Header>
-          </List.Content>
-        </List.Item>
+        {this.sounds()}
       </List>
       </div>
       <MuiThemeProvider theme={colors}>
-      <Button onClick={this.addSpriteMethod} variant="contained" color="secondary">
-      ADD
+      <Button onClick={this.addSoundMethod} variant="contained" color="secondary">
+      ATTACH
     </Button>
     </MuiThemeProvider>
     <br/>

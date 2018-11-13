@@ -11,12 +11,16 @@ const defaultSoundState = {
 };
 
 export default function soundReducer(state = defaultSoundState, action) {
-  switch(action.type) {
+  let index
+  let sprite
+  switch (action.type) {
     case 'SET_SOUNDS':
-      return {...state, sounds: action.sounds}
+      return { ...state,
+        sounds: action.sounds
+      }
     case 'PLAY_SOUND':
       return {}
-    // case 'SELECT_SOUND':
+      // case 'SELECT_SOUND':
       // return {...state, selectedSound: {...action.payload.selectedSound, url: action.payload.url}}
     default:
       return state;

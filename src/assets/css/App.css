@@ -38,7 +38,6 @@
  }
 
  .wrapper > * {
-   /* padding: 10px; */
    flex: 1 100%;
  }
 
@@ -46,20 +45,17 @@
    background: #623149;
    width: 100%;
    height: 6%;
-   /* border: 1px dotted; */
    display: flex;
    flex-direction: column;
    flex-wrap: nowrap;
  }
 
- /* .filter {
-   minWidth: 120;
-   margin: 0;
-   fullWidth: true;
-   backgroundColor: '#9ee';
-   display: 'flex';
-   wrap: 'nowrap';
- } */
+ .player{
+   display: flex;
+   flex-flow: row nowrap;
+   justify-content: space-around;
+   width: 50%;
+ }
 
   /* @media all and (min-width: 600px) {
    .bar { flex: 1 0 auto; }
@@ -108,28 +104,26 @@
     #sprite-scroll {
       background: #D2AEAF;
       color: white;
-      /* padding: 15px; */
       width: 100%;
       height: 80%;
       overflow-y: scroll;
       display: flex;
       flex-flow: column nowrap;
       align-items: center;
-      justify-content: space-between;
-      /* border: 1px dotted; */
+      justify-content: flex-start;
     }
 
     #sound-scroll {
       background: #D2AEAF;
       color: white;
-      /* padding: 15px; */
       width: 100%;
       height: 80%;
       overflow-y: scroll;
-      /* display: flex; */
-      /* flex-flow: column nowrap; */
-      /* border: 1px dotted; */
       font-size: 12px;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     #main {
@@ -159,13 +153,16 @@
       #controlbar {
         background: #623149;
         height: 20%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
       }
 
       .control-canvas {
-        background: red;
+        /* background: red; */
         height: 80%;
-        width: 50%;
-        margin: auto;
+        width: 20%;
       }
 
     #soundbar {

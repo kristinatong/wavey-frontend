@@ -75,15 +75,15 @@ class Sprite extends Component{
           y={1}
           width={60}
           height={60}
-          stroke='red'
-          strokeWidth={5}
+          stroke='#623149'
+          strokeWidth={3}
           onClick={this.handleSelect}
           onDragEnd={this.handleDragEnd}
           onDragStart={this.handleDragStart}
           onMouseOver={(e) => this.handleHover(e)}
           onMouseOut={(e) => this.handleHoverOut(e)}
           draggable
-          strokeEnabled={this.state.hover ? true : false}
+          strokeEnabled={this.props.selectedSprite.uniqueKey === this.state.uniqueKey ? true : false}
           />
     )
   }

@@ -14,21 +14,12 @@ import MenuAppBar from './components/MenuAppBar'
 import Home from './components/Home'
 import LoginForm from './components/LoginForm'
 import Profile from './components/Profile'
+import UploadSound from './components/UploadSound'
 import { createMuiTheme } from '@material-ui/core/styles';
 
 class App extends Component {
   render() {
     console.log(this.props)
-    // return (
-    //   <Fragment>
-    //     <SpriteBar />
-    //     <SoundBar />
-    //     <ControlBar />
-    //     <Canvas />
-    //     <Player />
-    //     <UploadSound />
-    //   </Fragment>
-    // );
     return(
       <div className='vwrapper'>
         <MenuAppBar />
@@ -37,6 +28,7 @@ class App extends Component {
           <Route exact path="/home" component={Home} />
           <Route exact path="/login" component={LoginForm} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/upload" component={UploadSound} />
         </Switch>
       </div>
     )

@@ -12,9 +12,15 @@ export function playSound() {
   }
 }
 
-export function selectSound(selectedSound, uniqueKey, url) {
+export function selectSound(selectedSound, uniqueKey, url, loop) {
   return {
     type: 'SELECT_SOUND',
-    payload: {selectedSound, uniqueKey, url}
+    payload: {selectedSound, uniqueKey, url, loop}
+  }
+}
+
+export function loopSound() {
+  return {
+    type: 'LOOP_SOUND',
   }
 }

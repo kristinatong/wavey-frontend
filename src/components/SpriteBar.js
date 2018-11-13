@@ -88,20 +88,13 @@ const styles = theme => ({
         width: 200,
       },
     },
-  },
-  // formControl: {
-  //   minWidth: 120,
-  //   margin: 0,
-  //   fullWidth: true,
-  //   backgroundColor: '#9ee',
-  //   display: 'flex',
-  //   wrap: 'nowrap'
-  // }
+  }
 });
 
 class SpriteBar extends Component{
   state = {
-    selectedSpriteBar: null
+    selectedSpriteBar: null,
+    filterBy: 'all'
   }
 
   componentDidMount(){
@@ -119,76 +112,43 @@ class SpriteBar extends Component{
   }
 
   sprites = () => {
-    return this.props.sprites.map(sprite => {
+    let sprites;
+    if(this.state.filterBy === 'all'){
+      sprites = this.props.sprites
+    }else{
+      sprites = this.props.sprites.filter(sprite => sprite.sprite_type === this.state.filterBy)
+    }
+    return sprites.map(sprite => {
       return (
         <Fragment key={sprite.id}>
-          <img style={this.state.selectedSpriteBar === sprite ? {width:'60px', height:'60px', border:"5px solid red"} : {width:'60px', height:'60px'}} src={sprite.url} onClick={() => this.selectSprite(sprite)} alt={sprite.name} /><br/>
+          <img style={this.state.selectedSpriteBar === sprite ? {width:'60px', height:'60px', border:"3px solid #623149"} : {width:'60px', height:'60px'}} src={sprite.url} onClick={() => this.selectSprite(sprite)} alt={sprite.name} /><br/>
         </Fragment>
       )
       })
     }
 
-    // sprites = () => {
-    //   let y = -50
-    //   const imgStyle={width:'100px', height:'100px'}
-    //   return this.props.sprites.map(sprite => {
-    //     const image = new window.Image();
-    //     image.src = sprite.url
-    //     y += 110
-    //     return <Image key={sprite.id}
-    //             image={image}
-    //             onClick={() => this.selectSprite(sprite)}
-    //             x={30}
-    //             y={y}
-    //             width={100}
-    //             height={100}
-    //             stroke='red'
-    //             strokeWidth={5}
-    //             strokeEnabled={this.state.selectedSpriteBar == sprite ? true : false}/>
-    //     })
-    //   }
+    getSpriteTypes = () => {
+      return (
+        ['all',...new Set(this.props.sprites.map(item => item.sprite_type))].map(type => {
+          return <MenuItem value={type}>{type.toUpperCase()}</MenuItem>
+        })
+      )
+    }
 
+    filterSprites = (e) => {
+      this.setState({
+        filterBy: e.target.value
+      })
+    }
 
   addSpriteMethod = () => {
     const uniqueKey = UUID()
-    // if(this.props.selectedSprite){
-    //   this.props.addSprite({...this.state.selectedSprite,uniqueKey:uniqueKey})
-    //   this.setState({selectedSpriteBar: null})
-    // }
     this.props.addSprite({sprite:this.state.selectedSpriteBar, uniqueKey: uniqueKey})
   }
 
   render(){
-    // const divStyle = {
-    //   position: 'absolute',
-    //   width: '150px',
-    //   height: '100vh',
-    //   left: '0',
-    //   top: '10',
-    //   backgroundColor: '#EEEEEE',
-    //   borderRight: '1px dotted'}
-
-    // const spriteBarStyle = {
-    //   position: 'absolute',
-    //   // width: '150px',
-    //   // height: '100vh',
-    //   left: '0',
-    //   top: '10',
-    //   backgroundColor: '#EEEEEE',
-    //   borderRight: '1px dotted'}
-
-
-    // return(
-    //   <div style={divStyle} onDragOver={(e)=>this.onDragOver(e)}
-    //     onDrop={(e)=>{this.onDrop(e, "wip")}}>
-    //     <h1>Sprite Bar</h1>
-    //     {this.sprites()}
-    //     <button onClick={this.props.addSprite}>Add Sprite</button>
-    //   </div>
-    // )
-          // <div className="bar spritebar">
+    console.log(this.props.sprites)
     return(
-
       <div id="spritebar">
         <div className="sidebar-nav">
         <FormControl className="filter">
@@ -196,19 +156,13 @@ class SpriteBar extends Component{
             IMAGES
           </InputLabel>
           <Select
-            value={this.state.age}
-            onChange={this.handleChange}
-            input={<Input name="age" id="age-label-placeholder" />}
+            value={this.state.filterBy}
+            onChange={this.filterSprites}
+            input={<Input name="filterBy" id="age-label-placeholder" />}
             displayEmpty
             name="age"
-            className={styles.selectEmpty}
           >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            <MenuItem value='all'>All</MenuItem>
-            <MenuItem value='instruments'>Instruments</MenuItem>
-            <MenuItem value='custom'>Custom</MenuItem>
+            {this.getSpriteTypes()}
           </Select>
       </FormControl>
         </div>
@@ -223,11 +177,6 @@ class SpriteBar extends Component{
       <br/>
       </div>
     )
-    // return(
-    //   <div id='spritebar'>
-    //
-    //   </div>
-    // )
   }
 }
 

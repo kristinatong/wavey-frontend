@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Stage, Layer, Text, Image } from 'react-konva';
-// import Sprite from './Sprite'
+import Player from './Player'
 
 class ControlBar extends Component{
   state = {
@@ -20,11 +20,6 @@ class ControlBar extends Component{
         ctrlImage: image
       });
     };
-    // if(!Object.keys(this.props.selectedSprite === 0)){
-    //   this.setState({
-    //     url: this.props.selectedSprite.sprite.url
-    //   })
-    // }
   }
 
   handleImageLoaded() {
@@ -36,47 +31,24 @@ class ControlBar extends Component{
   }
 
   render(){
-    console.log(this.state)
-    // const controlStyle =  {
-    //   // position: 'absolute',
-    //   backgroundColor: 'darkgray',
-    //   // bottom:'0px',
-    //   // left:'20%',
-    //   // border: '1px dotted'
-    //   alignSelf: 'flex-end'
-    // }
-
-    // width={600} height={120}
-
-    // return(
-    //   <div id="controlbar">
-    //     Control Bar
-    //     <Stage className='control-canvas' width={400} height={100}>
-    //       <Layer>
-    //         <Text text='Control Bar'/>
-    //         <Image image={this.state.ctrlImage}
-    //             x={100}
-    //             y={0}
-    //             width={90}
-    //             height={90}/>
-    //       </Layer>
-    //     </Stage>
-    //   </div>
-    // )
     return(
       <div id='controlbar'>
-          <Stage className='control-canvas' width={400} height={100}>
+          <Stage className='control-canvas' width={200} height={100}>
             <Layer>
-              <Text text='Control Bar'/>
               <Image image={this.state.ctrlImage}
-                  x={100}
+                  x={0}
                   y={0}
-                  width={90}
-                  height={90}/>
+                  width={80}
+                  height={80}
+                  stroke='red'
+                  strokeWidth={2}
+                  strokeEnabled={false}/>
             </Layer>
           </Stage>
+          <Player/>
       </div>
     )
+
   }
 }
 
