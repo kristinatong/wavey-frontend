@@ -16,8 +16,8 @@ import { connect } from 'react-redux'
 // import withAuth from '../hocs/withAuth'
 import { Redirect } from 'react-router-dom'
 import * as userActions from '../actions/user'
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { colors } from '../App'
 
 // const muiTheme = getMuiTheme({
 //   palette: {
@@ -35,9 +35,6 @@ window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true;
 //old typography variants in the next major release v4.0.0 (Q1 2019).
 
 const styles = {
-  root: {
-    // flexGrow: 1,
-  },
   grow: {
     flexGrow: 1,
   },
@@ -96,9 +93,10 @@ class MenuAppBar extends React.Component {
     const open = Boolean(this.state.anchorEl);
 
     return (
-      <div className={classes.root}>
+      <div id='app-bar'>
         {this.renderRedirect()}
-        <AppBar style={{backgroundColor: '#9C9292', height:'1'}} position="static">
+        <MuiThemeProvider theme={colors}>
+        <AppBar color='secondary' position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
               <MenuIcon />
@@ -137,6 +135,7 @@ class MenuAppBar extends React.Component {
             )}
           </Toolbar>
         </AppBar>
+        </MuiThemeProvider>
       </div>
     );
 

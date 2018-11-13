@@ -73,8 +73,8 @@ class Sprite extends Component{
       <Image image={this.state.image}
           x={1}
           y={1}
-          width={100}
-          height={100}
+          width={60}
+          height={60}
           stroke='red'
           strokeWidth={5}
           onClick={this.handleSelect}

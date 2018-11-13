@@ -27,6 +27,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 // import {List, ListItem} from 'material-ui/List';
 // import {Paper} from 'material-ui/Paper'
+import Button from '@material-ui/core/Button';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { colors } from '../App'
 
 const styles = theme => ({
   root: {
@@ -86,15 +89,14 @@ const styles = theme => ({
       },
     },
   },
-  formControl: {
-    // margin: theme.spacing.unit,
-    // minWidth: 120,
-    margin: 0,
-    fullWidth: true,
-    backgroundColor: '#9ee',
-    display: 'flex',
-    wrap: 'nowrap'
-  }
+  // formControl: {
+  //   minWidth: 120,
+  //   margin: 0,
+  //   fullWidth: true,
+  //   backgroundColor: '#9ee',
+  //   display: 'flex',
+  //   wrap: 'nowrap'
+  // }
 });
 
 class SpriteBar extends Component{
@@ -120,7 +122,7 @@ class SpriteBar extends Component{
     return this.props.sprites.map(sprite => {
       return (
         <Fragment key={sprite.id}>
-          <img style={this.state.selectedSpriteBar === sprite ? {width:'50px', height:'50px', border:"5px solid red"} : {width:'50px', height:'50px'}} src={sprite.url} onClick={() => this.selectSprite(sprite)} alt={sprite.name} /><br/>
+          <img style={this.state.selectedSpriteBar === sprite ? {width:'60px', height:'60px', border:"5px solid red"} : {width:'60px', height:'60px'}} src={sprite.url} onClick={() => this.selectSprite(sprite)} alt={sprite.name} /><br/>
         </Fragment>
       )
       })
@@ -185,38 +187,47 @@ class SpriteBar extends Component{
     //   </div>
     // )
           // <div className="bar spritebar">
-    // return(
-    //
-    //   <div id="spritebar">
-    //     <div className="sprite-navbar">
-    //       <FormControl className={styles.formControl}>
-    //       <InputLabel htmlFor="age-simple">Images</InputLabel>
-    //       <Select
-    //         value={this.state.age}
-    //         onChange={this.handleChange}
-    //         inputProps={{
-    //           name: 'age',
-    //           id: 'age-simple',
-    //         }}
-    //       >
-    //         <MenuItem value="">
-    //           <em>None</em>
-    //         </MenuItem>
-    //         <MenuItem value={10}>Ten</MenuItem>
-    //         <MenuItem value={20}>Twenty</MenuItem>
-    //         <MenuItem value={30}>Thirty</MenuItem>
-    //       </Select>
-    //     </FormControl>
-    //     </div>
-    //     <h3>Sprites</h3>
-    //     {this.sprites()}
-    //     <button onClick={this.addSpriteMethod}>Add Sprite</button>
-    //   </div>
-    // )
     return(
-      <div id='spritebar'>
+
+      <div id="spritebar">
+        <div className="sidebar-nav">
+        <FormControl className="filter">
+        <InputLabel shrink htmlFor="age-label-placeholder">
+            IMAGES
+          </InputLabel>
+          <Select
+            value={this.state.age}
+            onChange={this.handleChange}
+            input={<Input name="age" id="age-label-placeholder" />}
+            displayEmpty
+            name="age"
+            className={styles.selectEmpty}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            <MenuItem value='all'>All</MenuItem>
+            <MenuItem value='instruments'>Instruments</MenuItem>
+            <MenuItem value='custom'>Custom</MenuItem>
+          </Select>
+      </FormControl>
+        </div>
+        <div id='sprite-scroll'>
+        {this.sprites()}
+        </div>
+        <MuiThemeProvider theme={colors}>
+        <Button onClick={this.addSpriteMethod} variant="contained" color="secondary">
+        ADD
+      </Button>
+      </MuiThemeProvider>
+      <br/>
       </div>
     )
+    // return(
+    //   <div id='spritebar'>
+    //
+    //   </div>
+    // )
   }
 }
 

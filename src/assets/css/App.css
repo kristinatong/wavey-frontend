@@ -42,9 +42,24 @@
    flex: 1 100%;
  }
 
- .sprite-navbar{
-   background: #AF6E6F;
+ .sidebar-nav{
+   background: #623149;
+   width: 100%;
+   height: 6%;
+   /* border: 1px dotted; */
+   display: flex;
+   flex-direction: column;
+   flex-wrap: nowrap;
  }
+
+ /* .filter {
+   minWidth: 120;
+   margin: 0;
+   fullWidth: true;
+   backgroundColor: '#9ee';
+   display: 'flex';
+   wrap: 'nowrap';
+ } */
 
   /* @media all and (min-width: 600px) {
    .bar { flex: 1 0 auto; }
@@ -62,7 +77,6 @@
  .vwrapper {
   display: flex;
   flex-direction: column;
-
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: stretch;
@@ -70,6 +84,10 @@
 
   height: 100%;
 }
+
+  #app-bar {
+    border-bottom: 1px solid white;
+  }
 
   #row2 {
      background-color: green;
@@ -87,6 +105,33 @@
       justify-content: space-between;
     }
 
+    #sprite-scroll {
+      background: #D2AEAF;
+      color: white;
+      /* padding: 15px; */
+      width: 100%;
+      height: 80%;
+      overflow-y: scroll;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: space-between;
+      /* border: 1px dotted; */
+    }
+
+    #sound-scroll {
+      background: #D2AEAF;
+      color: white;
+      /* padding: 15px; */
+      width: 100%;
+      height: 80%;
+      overflow-y: scroll;
+      /* display: flex; */
+      /* flex-flow: column nowrap; */
+      /* border: 1px dotted; */
+      font-size: 12px;
+    }
+
     #main {
       background: white;
       flex-grow: 5;
@@ -95,33 +140,46 @@
       justify-content: space-between;
     }
 
+    #testdiv{
+      background: lightgray;
+      display: flex;
+      flex-flow: column nowrap;
+      height: 100%;
+    }
+
     .canvas {
-      /* flex-basis: 600px; */
       flex-grow: 4;
       flex-shrink: 1;
-      /* flex-basis: auto; */
+      /* display: flex;
+      flex-flow: row nowrap;
+      justify-content: center; */
+      /* border: 1px dotted #623149; */
     }
 
       #controlbar {
-        background: gray;
-        /* flex-grow: 1; */
-        /* flex-shrink: 1; */
+        background: #623149;
         height: 20%;
-        width: 50%;
       }
 
       .control-canvas {
         background: red;
         height: 80%;
         width: 50%;
-        margin-left: 10%;
-        /* margin-bottom: 2%; */
+        margin: auto;
       }
 
     #soundbar {
       background: #D2AEAF;
-      /* flex: 1 0; */
       width: 13%;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: space-between;
+      font-size: large;
+    }
+
+    #small-text{
+      font-size: large;
     }
 
     @media all and (min-width: 800px) {

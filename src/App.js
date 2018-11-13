@@ -14,6 +14,7 @@ import MenuAppBar from './components/MenuAppBar'
 import Home from './components/Home'
 import LoginForm from './components/LoginForm'
 import Profile from './components/Profile'
+import { createMuiTheme } from '@material-ui/core/styles';
 
 class App extends Component {
   render() {
@@ -49,6 +50,17 @@ function mapStateToProps(state) {
   }
 }
 
+export const colors = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#915c75'
+    },
+    secondary: {
+      light: 'D2AEAF',
+      main: '#623149', //dark
+    }
+  },
+});
 // export default App;
 // export default connect(mapStateToProps)(App);
 // export default withRouter(App) //withRouter is a Higher Order Component (HOC) that returns a COPY of App with React router props injected
