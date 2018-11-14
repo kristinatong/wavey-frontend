@@ -25,8 +25,11 @@ export var DiffCamEngine = (function() {
 	var includeMotionBox;		// flag to calculate and draw motion bounding box
 	var includeMotionPixels;	// flag to create object denoting pixels with motion
 	var coords;
+	var testContext;
+	var test;
 
 	function init(options) {
+		debugger
 		// sanity check
 		if (!options) {
 			throw 'No options object provided';
@@ -44,6 +47,7 @@ export var DiffCamEngine = (function() {
 		scoreThreshold = options.scoreThreshold || 16;
 		includeMotionBox = options.includeMotionBox || false;
 		includeMotionPixels = options.includeMotionPixels || false;
+		test = options.test || document.createElement('canvas');
 
 		// callbacks
 		initSuccessCallback = options.initSuccessCallback || function() {};
@@ -73,6 +77,11 @@ export var DiffCamEngine = (function() {
 		motionCanvas.width = diffWidth;
 		motionCanvas.height = diffHeight;
 		motionContext = motionCanvas.getContext('2d');
+
+		//test canvas
+		test.width = diffWidth;
+		test.height = diffHeight
+		testContext = test.getContext('2d')
 
 		requestWebcam();
 	}
@@ -127,6 +136,7 @@ export var DiffCamEngine = (function() {
 		// save a full-sized copy of capture
 		captureContext.drawImage(video, 0, 0, captureWidth, captureHeight);
 		var captureImageData = captureContext.getImageData(0, 0, captureWidth, captureHeight);
+		testContext.drawImage(video,0,0,captureWidth,captureHeight)
 
 		// diff current capture over previous capture, leftover from last time
 		diffContext.globalCompositeOperation = 'difference';
@@ -146,6 +156,8 @@ export var DiffCamEngine = (function() {
 					diff.motionBox.y.max - diff.motionBox.y.min
 				);
 			}
+
+
 			captureCallback({
 				imageData: captureImageData,
 				score: diff.score,
