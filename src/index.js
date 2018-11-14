@@ -1,14 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/css/index.css';
-import App from './components/App';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 // import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { BrowserRouter as Router } from 'react-router-dom'
+import 'semantic-ui-css/semantic.min.css';
 
 // ReactDOM.render(<App />, document.getElementById('root'));
+
+console.log(`%c INITIAL REDUX STORE`, 'color: purple', store.getState())
+
 ReactDOM.render(
   <Provider store={store}>
     <Router>

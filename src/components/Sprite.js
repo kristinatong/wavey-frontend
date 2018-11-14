@@ -10,7 +10,7 @@ class Sprite extends Component{
   state = {
     image: null,
     isDragging: false,
-    hover: false,
+    // hover: false,
     uniqueKey: null
   }
 
@@ -48,24 +48,50 @@ class Sprite extends Component{
     })
   }
 
-  handleHover = (e) => {
-    this.setState({
-      hover: true
-    })
-    // document.body.style.cursor = 'pointer'
-  }
+  // handleHover = (e) => {
+  //   this.setState({
+  //     hover: true
+  //   })
+  //   // document.body.style.cursor = 'pointer'
+  // }
+  //
+  // handleHoverOut = (e) => {
+  //   this.setState({
+  //     hover: false
+  //   })
+  //   // document.body.style.cursor = 'default'
+  // }
 
-  handleHoverOut = (e) => {
-    this.setState({
-      hover: false
-    })
-    // document.body.style.cursor = 'default'
+  handleStroke = () => {
+    if(this.props.djMode){
+      return false
+    }else{
+      return this.props.selectedSprite.uniqueKey === this.state.uniqueKey ? true : false
+    }
   }
 
   handleSelect = () => {
-    this.props.selectSprite(this.state.uniqueKey)
+    if(!this.props.djMode){
+      this.props.selectSprite(this.state.uniqueKey)
+    }else{
+      let playSprite = this.props.canvasSprites.find(sprite => sprite.uniqueKey === this.state.uniqueKey)
+      if(document.getElementById(playSprite.uniqueKey)){
+        let player = document.getElementById(playSprite.uniqueKey)
+        player.paused ? player.play() : player.pause()
+      }else{
+        // let player = document.createElement("AUDIO");
+        // player.id = playSprite.uniqueKey
+        // player.setAttribute("src",playSprite.sound.url)
+        // player.autoplay = true
+        // player.loop = playSprite.sound.loop
+        // player.load()
+        // document.body.appendChild(player)
+      }
+    }
   }
 
+  // onMouseOver={(e) => this.handleHover(e)}
+  // onMouseOut={(e) => this.handleHoverOut(e)}
   render(){
     console.log('SPRITE PROPS', this.props)
     console.log('SPRITE STATE', this.state)
@@ -73,17 +99,15 @@ class Sprite extends Component{
       <Image image={this.state.image}
           x={1}
           y={1}
-          width={100}
-          height={100}
-          stroke='red'
-          strokeWidth={5}
+          width={60}
+          height={60}
+          stroke='#623149'
+          strokeWidth={3}
           onClick={this.handleSelect}
           onDragEnd={this.handleDragEnd}
           onDragStart={this.handleDragStart}
-          onMouseOver={(e) => this.handleHover(e)}
-          onMouseOut={(e) => this.handleHoverOut(e)}
           draggable
-          strokeEnabled={this.state.hover ? true : false}
+          strokeEnabled={this.handleStroke()}
           />
     )
   }
@@ -92,7 +116,8 @@ class Sprite extends Component{
 function mapStateToProps(state) {
   return {
     selectedSprite: state.sprite.selectedSprite,
-    canvasSprites: state.sprite.canvasSprites
+    canvasSprites: state.sprite.canvasSprites,
+    djMode: state.sound.djMode
   }
 }
 

@@ -1,4 +1,4 @@
-const initialSoundState = {
+const defaultSoundState = {
   // sounds: [
   //   {id:1, name: 'bodak yellow', url: 'http://1604ent.com/wp-content/uploads/2017/10/Cardi_B_-_Bodak_Yellow_1604Ent.com.mp3'},
   //   {id:2, name: 'in my feelings', url: 'http://1604ent.com/wp-content/uploads/2018/08/Drake_-_In_My_Feelings_1604Ent.com.mp3'},
@@ -7,16 +7,25 @@ const initialSoundState = {
   //   {id:5, name: 'headphones sound', url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3'}
   // ],
   sounds: [],
-  selectedSound: {}
+  selectedSound: {},
+  djMode: false
 };
 
-export default function soundReducer(state = initialSoundState, action) {
-  switch(action.type) {
+export default function soundReducer(state = defaultSoundState, action) {
+  let index
+  let sprite
+  switch (action.type) {
     case 'SET_SOUNDS':
-      return {...state, sounds: action.sounds}
+      return { ...state,
+        sounds: action.sounds
+      }
+    case 'CHANGE_DJ_MODE':
+      return { ...state,
+        djMode: !state.djMode
+      }
     case 'PLAY_SOUND':
       return {}
-    // case 'SELECT_SOUND':
+      // case 'SELECT_SOUND':
       // return {...state, selectedSound: {...action.payload.selectedSound, url: action.payload.url}}
     default:
       return state;

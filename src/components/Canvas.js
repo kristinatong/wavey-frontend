@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 // import Konva from 'konva';
 import { Stage, Layer } from 'react-konva';
 import SpriteList from './SpriteList'
+import ControlBar from './ControlBar'
+import UploadSound from './UploadSound'
 
 
 class Canvas extends Component {
@@ -35,11 +37,10 @@ class Canvas extends Component {
 
   render(){
     const stageStyle = {
-      position: 'absolute',
-      left: '20%',
-      top: '10%',
-      backgroundColor: '#EEEEEE',
-      border: '1px dotted'}
+      backgroundColor: 'white',
+      // border: '1px dotted red',
+      margin: 'auto',
+    }
 
     // return(
     //   <Fragment>
@@ -51,11 +52,16 @@ class Canvas extends Component {
     // )
 
     return(
-      <Stage style={stageStyle} width={700} height={525}>
-        <Layer>
-          <SpriteList/>
-        </Layer>
-      </Stage>
+      <div id='main'>
+        <div id='testdiv'>
+          <Stage style={stageStyle} width={600} height={450}>
+            <Layer>
+              <SpriteList/>
+            </Layer>
+          </Stage>
+          </div>
+          <ControlBar/>
+      </div>
     )
   }
 }

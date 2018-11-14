@@ -1,10 +1,5 @@
-.App {
+/* .App {
   text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
 }
 
 .App-header {
@@ -30,3 +25,172 @@
     transform: rotate(360deg);
   }
 }
+ */
+
+ .wrapper {
+   display: flex;
+   flex-flow: row nowrap;
+   /* flex-direction: row;
+   flex-wrap: nowrap; */
+   font-weight: bold;
+   text-align: center;
+   height: 100%;
+ }
+
+ .wrapper > * {
+   flex: 1 100%;
+ }
+
+ .sidebar-nav{
+   background: #623149;
+   width: 100%;
+   height: 6%;
+   display: flex;
+   flex-direction: column;
+   flex-wrap: nowrap;
+ }
+
+ .player{
+   display: flex;
+   flex-flow: row nowrap;
+   justify-content: space-around;
+   width: 50%;
+ }
+
+  /* @media all and (min-width: 600px) {
+   .bar { flex: 1 0 auto; }
+ }
+
+  @media all and (min-width: 800px) {
+   .main    { flex: 50; }
+   .spritebar { order: 1; }
+   .main    { order: 2; }
+   .soundbar { order: 3; }
+   .canvas { order: 1;}
+   .controlbar { order: 2;}
+ } */
+
+ .vwrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: stretch;
+
+  height: 100%;
+}
+
+  #app-bar {
+    border-bottom: 1px solid white;
+  }
+
+  #row2 {
+     background-color: green;
+     flex: 1 1 auto;
+     display: flex;
+  }
+    #spritebar {
+      background: #D2AEAF;
+      /* flex: 1 0; */
+      width: 13%;
+      display: flex;
+      flex-flow: column nowrap;
+      /* align-content: center; */
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #sprite-scroll {
+      background: #D2AEAF;
+      color: white;
+      width: 100%;
+      height: 80%;
+      overflow-y: scroll;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    #sound-scroll {
+      background: #D2AEAF;
+      color: white;
+      width: 100%;
+      height: 80%;
+      overflow-y: scroll;
+      font-size: 12px;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    #main {
+      background: white;
+      flex-grow: 5;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: space-between;
+    }
+
+    #testdiv{
+      background: lightgray;
+      display: flex;
+      flex-flow: column nowrap;
+      height: 100%;
+    }
+
+    .canvas {
+      flex-grow: 4;
+      flex-shrink: 1;
+      /* display: flex;
+      flex-flow: row nowrap;
+      justify-content: center; */
+      /* border: 1px dotted #623149; */
+    }
+
+      #controlbar {
+        background: #623149;
+        /* background: black; */
+        height: 20%;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .control-canvas {
+        /* background: red; */
+        height: 80%;
+        width: 20%;
+      }
+
+    #soundbar {
+      background: #D2AEAF;
+      width: 13%;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: space-between;
+      font-size: large;
+    }
+
+    #small-text{
+      font-size: large;
+    }
+
+    @media all and (min-width: 800px) {
+     #spritebar { order: 1; }
+     #main    { order: 2; }
+     #soundbar { order: 3; }
+     .canvas { order: 1;}
+     #controlbar { order: 2;}
+   }
+
+ html, body, #root{
+   margin: 0;
+   /* padding: 0; */
+   /* width: 100%; */
+   height: 100%;
+ }
