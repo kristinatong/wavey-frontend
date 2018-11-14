@@ -8,7 +8,8 @@ const defaultSoundState = {
   // ],
   sounds: [],
   selectedSound: {},
-  djMode: false
+  djMode: false,
+  stopVideo: true
 };
 
 export default function soundReducer(state = defaultSoundState, action) {
@@ -21,7 +22,8 @@ export default function soundReducer(state = defaultSoundState, action) {
       }
     case 'CHANGE_DJ_MODE':
       return { ...state,
-        djMode: !state.djMode
+        djMode: !state.djMode,
+        stopVideo: !state.stopVideo
       }
     case 'PLAY_SOUND':
       return {}

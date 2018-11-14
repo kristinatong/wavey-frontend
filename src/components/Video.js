@@ -60,8 +60,7 @@ class Video extends Component {
     pixelDiffThreshold: 32,
     scoreThreshold: 16,
     includeMotionBox: false,
-    includeMotionPixels: false
-
+    includeMotionPixels: false,
   }
 
   componentDidMount() {
@@ -120,34 +119,23 @@ class Video extends Component {
 
     captureCallback = function() {};
 
-    const drawSprites = () => {
-      return this.props.canvasSprites.map(sprite => {
-        const image = new window.Image();
-        image.src = sprite.sprite.url
-        image.onload = () => {
-          testContent.scale(-1,1)
-          testContext.drawImage(image, spriteCanvas.width-(60+sprite.position.x), sprite.position.y, 60, 60)
-        }
-      })
-    }
-
-    drawSprites()
-    this.requestWebcam();
-  }
-
-  componentDidUpdate() {
-    // const canvas = this.refs.test
-    // const ctx = canvas.getContext('2d')
-    // ctx.drawImage(this.state.video,0,0)
-    // this.props.canvasSprites.map(sprite =>{
-    //   const image = new window.Image();
+    // const drawSprites = () => {
+    //   return this.props.canvasSprites.map(sprite => {
+    //     const image = new window.Image();
     //     image.src = sprite.sprite.url
-    //     image.onload = () =>{
-    //       ctx.drawImage(image,sprite.position.x,sprite.position.y, 60, 60)
+    //     image.onload = () => {
+    //       testContext.save()
+    //       testContext.scale(-1,1)
+    //       testContext.drawImage(image, sprite.position.x-test.width+60, sprite.position.y, -60, 60)
+    //       testContext.restore()
+    //       // testContext.scale(-1,1)
+    //       // testContext.drawImage(image, spriteCanvas.width-(60+sprite.position.x), sprite.position.y, 60, 60)
     //     }
-    //   }
-    // )
+    //   })
+    // }
 
+    // this.drawSprites()
+    this.requestWebcam();
   }
 
   getMotion = () => {
@@ -246,62 +234,91 @@ class Video extends Component {
     isReadyToDiff = false;
   }
 
+  drawSprites = () => {
+    if(this.props.canvasSprites){
+      this.props.canvasSprites.map(sprite => {
+        console.log('SPRITE POSITION', sprite.position)
+        const image = new window.Image();
+        image.src = sprite.sprite.url
+        image.onload = () => {
+          testContext.save()
+          testContext.scale(-1,1)
+          testContext.drawImage(image, sprite.position.x-test.width+60, sprite.position.y, -60, 60)
+          testContext.restore()
+        }
+      })
+    }
+    // this.props.canvasSprites.map(sprite => {
+    //   const image = new window.Image();
+    //   image.src = sprite.sprite.url
+    //   image.onload = () => {
+    //     testContext.save()
+    //     testContext.scale(-1,1)
+    //     testContext.drawImage(image, sprite.position.x-test.width+60, sprite.position.y, -60, 60)
+    //     testContext.restore()
+    //   }
+    // })
+  }
+
   capture = () => {
     // save a full-sized copy of capture
     captureContext.drawImage(video, 0, 0, captureWidth, captureHeight);
     var captureImageData = captureContext.getImageData(0, 0, captureWidth, captureHeight);
     testContext.drawImage(video, 0, 0, captureWidth, captureHeight);
-    const drawSprites = () => {
-      return this.props.canvasSprites.map(sprite => {
-        const image = new window.Image();
-        image.src = sprite.sprite.url
-        image.onload = () => {
-          testContext.drawImage(image, sprite.position.x, sprite.position.y, 60, 60)
-        }
-      })
-    }
-    drawSprites()
-    // diff current capture over previous capture, leftover from last time
-    diffContext.globalCompositeOperation = 'difference';
-    diffContext.drawImage(video, 0, 0, diffWidth, diffHeight);
-    var diffImageData = diffContext.getImageData(0, 0, diffWidth, diffHeight);
-    console.log(diffImageData)
-    // test.drawImage(video, 0, 0, diffWidth, diffHeight);
-    // var zimage = document.getElementById('source');
-    // test.drawImage(zimage, 33, 71, 104, 124, 21, 20, 87, 104);
-
-    if (isReadyToDiff) {
-      var diff = this.processDiff(diffImageData);
-
-      motionContext.putImageData(diffImageData, 0, 0);
-      if (diff.motionBox) {
-        motionContext.strokeStyle = '#fff';
-        motionContext.strokeRect(
-          diff.motionBox.x.min + 0.5,
-          diff.motionBox.y.min + 0.5,
-          diff.motionBox.x.max - diff.motionBox.x.min,
-          diff.motionBox.y.max - diff.motionBox.y.min
-        );
-      }
-      captureCallback({
-        imageData: captureImageData,
-        score: diff.score,
-        hasMotion: diff.score >= scoreThreshold,
-        motionBox: diff.motionBox,
-        motionPixels: diff.motionPixels,
-        getURL: function() {
-          return this.getCaptureUrl(this.imageData);
-        },
-        checkMotionPixel: function(x, y) {
-          return this.checkMotionPixel(this.motionPixels, x, y)
-        }
-      });
-    }
-
-    // draw current capture normally over diff, ready for next time
-    diffContext.globalCompositeOperation = 'source-over';
-    diffContext.drawImage(video, 0, 0, diffWidth, diffHeight);
-    isReadyToDiff = true;
+    // const drawSprites = () => {
+    //   return this.props.canvasSprites.map(sprite => {
+    //     const image = new window.Image();
+    //     image.src = sprite.sprite.url
+    //     image.onload = () => {
+    //       testContext.save()
+    //       testContext.scale(-1,1)
+    //       testContext.drawImage(image, sprite.position.x-test.width+60, sprite.position.y, -60, 60)
+    //       testContext.restore()
+    //     }
+    //   })
+    // }
+    this.drawSprites()
+    // // diff current capture over previous capture, leftover from last time
+    // diffContext.globalCompositeOperation = 'difference';
+    // diffContext.drawImage(video, 0, 0, diffWidth, diffHeight);
+    // var diffImageData = diffContext.getImageData(0, 0, diffWidth, diffHeight);
+    // console.log(diffImageData)
+    // // test.drawImage(video, 0, 0, diffWidth, diffHeight);
+    // // var zimage = document.getElementById('source');
+    // // test.drawImage(zimage, 33, 71, 104, 124, 21, 20, 87, 104);
+    //
+    // if (isReadyToDiff) {
+    //   var diff = this.processDiff(diffImageData);
+    //
+    //   motionContext.putImageData(diffImageData, 0, 0);
+    //   if (diff.motionBox) {
+    //     motionContext.strokeStyle = '#fff';
+    //     motionContext.strokeRect(
+    //       diff.motionBox.x.min + 0.5,
+    //       diff.motionBox.y.min + 0.5,
+    //       diff.motionBox.x.max - diff.motionBox.x.min,
+    //       diff.motionBox.y.max - diff.motionBox.y.min
+    //     );
+    //   }
+    //   captureCallback({
+    //     imageData: captureImageData,
+    //     score: diff.score,
+    //     hasMotion: diff.score >= scoreThreshold,
+    //     motionBox: diff.motionBox,
+    //     motionPixels: diff.motionPixels,
+    //     getURL: function() {
+    //       return this.getCaptureUrl(this.imageData);
+    //     },
+    //     checkMotionPixel: function(x, y) {
+    //       return this.checkMotionPixel(this.motionPixels, x, y)
+    //     }
+    //   });
+    // }
+    //
+    // // draw current capture normally over diff, ready for next time
+    // diffContext.globalCompositeOperation = 'source-over';
+    // diffContext.drawImage(video, 0, 0, diffWidth, diffHeight);
+    // isReadyToDiff = true;
   }
 
   processDiff(diffImageData) {
@@ -400,6 +417,7 @@ class Video extends Component {
   setScoreThreshold(val) {
     scoreThreshold = val;
   }
+
   render(){
     console.log('VIDEO STATE', this.state)
     const videoStyle= {
@@ -425,15 +443,16 @@ class Video extends Component {
       zIndex: 4,
       background: 'black',
       transform: 'rotateY(180deg)',
-      webkitTransform:'rotateY(180deg)',
-      mozTransform:'rotateY(180deg)',
+      WebkitTransform:'rotateY(180deg)',
+      MozTransform:'rotateY(180deg)',
     }
 
 // <video id="video" style={videoStyle} width={this.state.width} height={this.state.height} ref='video'></video>
 
     return(
       <div>
-
+        {this.props.stopVideo ? this.stop() : null}
+        <video id="video" style={videoStyle} width={this.state.width} height={this.state.height} ref='video'></video>
         <canvas id='motion' style={motionStyle} width={this.state.width} height={this.state.height} ref='motion'/>
         <canvas id='test' style={testStyle} width={this.state.width} height={this.state.height} ref='test'/>
         <span id="score"></span>
@@ -445,7 +464,8 @@ class Video extends Component {
 
 function mapStateToProps(state) {
   return {
-    canvasSprites: state.sprite.canvasSprites
+    canvasSprites: state.sprite.canvasSprites,
+    stopVideo: state.sound.stopVideo
   }
 }
 
