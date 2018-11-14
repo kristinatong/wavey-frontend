@@ -43,6 +43,7 @@
 
  .sidebar-nav{
    background: #623149;
+   /* background: #5c4878; /*purple color theme*/
    width: 100%;
    height: 6%;
    display: flex;
@@ -92,6 +93,7 @@
   }
     #spritebar {
       background: #D2AEAF;
+      /* background: #5c4878; /*purple color theme*/
       /* flex: 1 0; */
       width: 13%;
       display: flex;
@@ -102,7 +104,9 @@
     }
 
     #sprite-scroll {
-      background: #D2AEAF;
+      /* background: #D2AEAF; */
+      background: ##5c4878; /*purple color theme*/
+      /* background: #ad99ad; */
       color: white;
       width: 100%;
       height: 80%;
@@ -135,6 +139,7 @@
     }
 
     #testdiv{
+      background-image: url('../svg/geometry.jpg');
       background: lightgray;
       display: flex;
       flex-flow: column nowrap;
@@ -168,6 +173,9 @@
 
     #soundbar {
       background: #D2AEAF;
+      /* background-image: url('../svg/geometry.jpg'); */
+      /* background: #5c4878; /*purple color theme*/
+      /* background: #ad99ad; */
       width: 13%;
       display: flex;
       flex-flow: column nowrap;

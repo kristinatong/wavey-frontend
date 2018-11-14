@@ -46,10 +46,13 @@ export const colors = createMuiTheme({
   palette: {
     primary: {
       main: '#915c75'
+      // main: '#31204c'
     },
     secondary: {
       light: 'D2AEAF',
       main: '#623149', //dark
+      // main: '#0e0024',
+      // light: '#5c4878',
     }
   },
 });

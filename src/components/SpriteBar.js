@@ -30,6 +30,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { colors } from '../App'
+import { Icon, Popup } from 'semantic-ui-react'
 
 const styles = theme => ({
   root: {
@@ -130,7 +131,7 @@ class SpriteBar extends Component{
     getSpriteTypes = () => {
       return (
         ['all',...new Set(this.props.sprites.map(item => item.sprite_type))].map(type => {
-          return <MenuItem value={type}>{type.toUpperCase()}</MenuItem>
+          return <MenuItem key={type} value={type}>{type.toUpperCase()}</MenuItem>
         })
       )
     }
@@ -167,6 +168,31 @@ class SpriteBar extends Component{
       </FormControl>
         </div>
         <div id='sprite-scroll'>
+        <Popup
+      trigger={<Icon circular name='heart' />}
+      content='Hello. This is a mini popup'
+      size='mini'
+    />
+    <Popup
+      trigger={<Icon circular name='heart' />}
+      content='Hello. This is a tiny popup'
+      size='tiny'
+    />
+    <Popup
+      trigger={<Icon circular name='heart' />}
+      content='Hello. This is a small popup'
+      size='small'
+    />
+    <Popup
+      trigger={<Icon circular name='heart' />}
+      content='Hello. This is a large popup'
+      size='large'
+    />
+    <Popup
+      trigger={<Icon circular name='heart' />}
+      content='Hello. This is a huge popup'
+      size='huge'
+    />
         {this.sprites()}
         </div>
         <MuiThemeProvider theme={colors}>

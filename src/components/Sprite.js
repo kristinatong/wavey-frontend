@@ -93,14 +93,6 @@ class Sprite extends Component{
       if(document.getElementById(playSprite.uniqueKey)){
         let player = document.getElementById(playSprite.uniqueKey)
         player.paused ? player.play() : player.pause()
-      }else{
-        // let player = document.createElement("AUDIO");
-        // player.id = playSprite.uniqueKey
-        // player.setAttribute("src",playSprite.sound.url)
-        // player.autoplay = true
-        // player.loop = playSprite.sound.loop
-        // player.load()
-        // document.body.appendChild(player)
       }
     }
   }
@@ -110,14 +102,6 @@ class Sprite extends Component{
   render(){
     console.log('SPRITE PROPS', this.props)
     console.log('SPRITE STATE', this.state)
-
-    // const konvaImage = new Konva.Image({
-    //   image: this.state.image,
-    //   x: 1,
-    //   y: 1,
-    //   width:60,
-    //   height:60,
-    // })
 
     return(
       <Image image={this.state.image}
@@ -134,9 +118,6 @@ class Sprite extends Component{
           strokeEnabled={this.handleStroke()}
           />
     )
-    // return(
-    //   <Fragment>{this.state.konvaImage}</Fragment>
-    // )
   }
 }
 

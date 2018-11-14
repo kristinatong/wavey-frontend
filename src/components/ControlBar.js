@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 import { Stage, Layer, Text, Image } from 'react-konva';
 import Player from './Player'
-import DJMode from './DJMode'
 import Video from './Video'
 import Button from '@material-ui/core/Button';
 import { MuiThemeProvider } from '@material-ui/core/styles';

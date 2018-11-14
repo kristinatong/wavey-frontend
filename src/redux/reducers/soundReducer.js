@@ -9,21 +9,27 @@ const defaultSoundState = {
   sounds: [],
   selectedSound: {},
   djMode: false,
-  stopVideo: true
+  stopVideo: false
 };
 
 export default function soundReducer(state = defaultSoundState, action) {
   let index
   let sprite
+  let stopVideo
   switch (action.type) {
     case 'SET_SOUNDS':
       return { ...state,
         sounds: action.sounds
       }
     case 'CHANGE_DJ_MODE':
+      if(!state.djMode===true){
+        stopVideo = false
+      }else{
+        stopVideo = true
+      }
       return { ...state,
         djMode: !state.djMode,
-        stopVideo: !state.stopVideo
+        stopVideo: stopVideo
       }
     case 'PLAY_SOUND':
       return {}
