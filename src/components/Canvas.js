@@ -54,8 +54,8 @@ class Canvas extends Component {
     return(
       <div id='main'>
         <div id='testdiv'>
-          <Stage style={stageStyle} width={600} height={450}>
-            <Layer>
+          <Stage className='hello' style={stageStyle} width={600} height={450}>
+            <Layer className='bye'>
               <SpriteList/>
             </Layer>
           </Stage>
