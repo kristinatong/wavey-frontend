@@ -170,7 +170,7 @@ class SpriteBar extends Component{
         {this.sprites()}
         </div>
         <MuiThemeProvider theme={colors}>
-        <Button onClick={this.addSpriteMethod} variant="contained" color="secondary">
+        <Button disabled={this.props.djMode ? true : false} onClick={this.addSpriteMethod} variant="contained" color="secondary">
         ADD
       </Button>
       </MuiThemeProvider>
@@ -183,7 +183,8 @@ class SpriteBar extends Component{
 function mapStateToProps(state) {
   return {
     sprites: state.sprite.sprites,
-    selectedSprite: state.sprite.selectedSprite
+    selectedSprite: state.sprite.selectedSprite,
+    djMode: state.sound.djMode
   }
 }
 

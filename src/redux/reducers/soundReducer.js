@@ -7,7 +7,8 @@ const defaultSoundState = {
   //   {id:5, name: 'headphones sound', url: 'https://storage.googleapis.com/media-session/elephants-dream/the-wires.mp3'}
   // ],
   sounds: [],
-  selectedSound: {}
+  selectedSound: {},
+  djMode: false
 };
 
 export default function soundReducer(state = defaultSoundState, action) {
@@ -17,6 +18,10 @@ export default function soundReducer(state = defaultSoundState, action) {
     case 'SET_SOUNDS':
       return { ...state,
         sounds: action.sounds
+      }
+    case 'CHANGE_DJ_MODE':
+      return { ...state,
+        djMode: !state.djMode
       }
     case 'PLAY_SOUND':
       return {}

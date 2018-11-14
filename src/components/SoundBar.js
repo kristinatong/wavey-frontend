@@ -113,15 +113,20 @@ class SoundBar extends Component{
   }
 
   selectSound = (sound) => {
+    this.setState({
+      selectedSoundBar: sound
+    })
+  }
+
+  handleAttach = () => {
     if(!Object.keys(this.props.selectedSprite).length == 0){
-      fetch(`${API_ENDPOINT}/api/v1/sounds/${sound.id}`)
+      fetch(`${API_ENDPOINT}/api/v1/sounds/${this.state.selectedSoundBar.id}`)
         .then(r => r.json())
         .then(data => {
-          this.props.selectSound(sound, this.props.selectedSprite.uniqueKey, data.url, false)
+          this.props.selectSound(this.state.selectedSoundBar, this.props.selectedSprite.uniqueKey, data.url, false)
         })
-      this.setState({
-        selectedSoundBar: sound
-      })
+    }else{
+      alert ("Please select an image.");
     }
   }
 
@@ -130,12 +135,12 @@ class SoundBar extends Component{
     if(this.state.filterBy === 'all'){
       sounds = this.props.sounds
     }else{
-      sounds = this.props.sounds.filter(sound => sound.sprite_type === this.state.filterBy)
+      sounds = this.props.sounds.filter(sound => sound.sound_type === this.state.filterBy)
     }
     return sounds.map(sound => {
       return (
         <List.Item key={sound.id} onClick={() => this.selectSound(sound)}>
-          <Image avatar src='https://react.semantic-ui.com/images/avatar/small/helen.jpg' />
+          <Image avatar src={sound.image_url} />
           <List.Content>
             <List.Header>{sound.name}</List.Header>
           </List.Content>
@@ -143,6 +148,8 @@ class SoundBar extends Component{
       )
     })
   }
+
+
 
     getSoundTypes = () => {
       return (
@@ -184,7 +191,7 @@ class SoundBar extends Component{
       </List>
       </div>
       <MuiThemeProvider theme={colors}>
-      <Button onClick={this.addSoundMethod} variant="contained" color="secondary">
+      <Button disabled={this.props.djMode ? true : false} onClick={this.handleAttach} variant="contained" color="secondary">
       ATTACH
     </Button>
     </MuiThemeProvider>
@@ -197,7 +204,8 @@ class SoundBar extends Component{
 function mapStateToProps(state) {
   return {
     sounds: state.sound.sounds,
-    selectedSprite: state.sprite.selectedSprite
+    selectedSprite: state.sprite.selectedSprite,
+    djMode: state.sound.djMode
   }
 }
 

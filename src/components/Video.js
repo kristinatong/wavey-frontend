@@ -51,6 +51,8 @@ class Video extends Component {
     //   </Fragment>
     // )
 
+    // <canvas width={600} height={360} style={{backgroundColor:'black'}} ref='videoLayer'/>
+
     return(
       <div id='main'>
         <div id='testdiv'>
@@ -59,7 +61,7 @@ class Video extends Component {
               <SpriteList/>
             </Layer>
           </Stage>
-          <canvas width={600} height={360} style={{backgroundColor:'black'}} ref='videoLayer'/>
+
           </div>
           <ControlBar/>
       </div>

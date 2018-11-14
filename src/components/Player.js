@@ -32,9 +32,12 @@ class Player extends Component{
     }
       return(
         <div className="player">
-          <ReactPlayer className="react-player" width={275} height={60} url={url} playing controls={true} loop={this.state.loop}/><br/>
+          <ReactPlayer className="react-player" width={275} height={60} url={url} playing={this.props.djMode ? false : true} controls={this.props.djMode ? false : true} loop={this.state.loop}/><br/>
           <MuiThemeProvider theme={colors}>
+          {!this.props.djMode ?
+          (
           <FormControlLabel
+          disabled={!this.props.selectedSprite.sound ? true : false}
           control={
             <Checkbox
               checked={this.state.loop}
@@ -44,7 +47,7 @@ class Player extends Component{
             />
           }
           label="LOOP"
-        />
+        />) : null}
         </MuiThemeProvider>
         </div>
       )
@@ -53,7 +56,8 @@ class Player extends Component{
 
 function mapStateToProps(state) {
   return {
-    selectedSprite: state.sprite.selectedSprite
+    selectedSprite: state.sprite.selectedSprite,
+    djMode: state.sound.djMode
   }
 }
 

@@ -24,3 +24,9 @@ export function loopSound() {
     type: 'LOOP_SOUND',
   }
 }
+
+export function changeDJMode(){
+  return {
+    type: 'CHANGE_DJ_MODE'
+  }
+}

@@ -152,6 +152,7 @@
 
       #controlbar {
         background: #623149;
+        /* background: black; */
         height: 20%;
         display: flex;
         flex-flow: row nowrap;

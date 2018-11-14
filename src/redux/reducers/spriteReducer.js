@@ -58,19 +58,36 @@ export default function spriteReducer(state = defaultSpriteState, action) {
           sound: { ...state.selectedSprite.sound,
             loop: !state.selectedSprite.sound.loop
           }
-        }
-      ,
-      canvasSprites: [
-        ...state.canvasSprites.slice(0, index),
-        Object.assign({}, sprite, {
-          sound: { ...state.selectedSprite.sound,
-            loop: !state.selectedSprite.sound.loop
-          }
-        }),
-        ...state.canvasSprites.slice(index + 1)
-      ]
+        },
+        canvasSprites: [
+          ...state.canvasSprites.slice(0, index),
+          Object.assign({}, sprite, {
+            sound: { ...state.selectedSprite.sound,
+              loop: !state.selectedSprite.sound.loop
+            }
+          }),
+          ...state.canvasSprites.slice(index + 1)
+        ]
+      }
+    case 'CLEAR_SELECTED':
+      return {...state,selectedSprite:{}}
+    case 'CHANGE_DJ_MODE':
+      state.canvasSprites.forEach(sprite => {
+        if(document.getElementById(sprite.uniqueKey)){
+          let player = document.getElementById(sprite.uniqueKey)
+          player.pause();
+          player.currentTime = 0;
+        }else{
+          let player = document.createElement("AUDIO");
+          player.id = sprite.uniqueKey
+          player.setAttribute("src",sprite.sound.url)
+          // player.autoplay = true
+          player.loop = sprite.sound.loop
+          player.load()
+          document.body.appendChild(player)
+        }})
+      return state;
+    default:
+      return state;
   }
-  default:
-  return state;
-}
 }

@@ -48,7 +48,8 @@ class MenuAppBar extends React.Component {
   state = {
     // auth: true,
     anchorEl: null,
-    redirect: false
+    redirect: false,
+    mainMenu: null,
   };
 
   // handleChange = event => {
@@ -59,9 +60,20 @@ class MenuAppBar extends React.Component {
     this.setState({ anchorEl: event.currentTarget });
   };
 
+  handleMainMenu = event => {
+    this.setState({ mainMenu: event.currentTarget });
+  };
+
   handleClose = () => {
     this.setState({
       anchorEl: null,
+      redirect: false
+    });
+  };
+
+  handleMainClose = () => {
+    this.setState({
+      mainMenu: null,
       redirect: false
     });
   };
@@ -81,6 +93,20 @@ class MenuAppBar extends React.Component {
     });
   }
 
+  home = () => {
+    this.setState({
+      mainMenu: null,
+      redirect: '/home'
+    });
+  }
+
+  upload = () => {
+    this.setState({
+      mainMenu: null,
+      redirect: '/upload'
+    });
+  }
+
   renderRedirect = () => {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />
@@ -91,7 +117,8 @@ class MenuAppBar extends React.Component {
     const { classes } = this.props;
     // const { auth, anchorEl } = this.state;
     const open = Boolean(this.state.anchorEl);
-
+    const openMain = Boolean(this.state.mainMenu);
+    console.log('menu app bar',this.state)
     return (
       <div id='app-bar'>
         {this.renderRedirect()}
@@ -99,7 +126,27 @@ class MenuAppBar extends React.Component {
         <AppBar color='secondary' position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
+              <MenuIcon aria-owns={openMain ? 'main-menu-appbar' : undefined}
+              aria-haspopup="true"
+              onClick={this.handleMainMenu}
+              color="inherit"/>
+              <Menu
+                id="main-menu-appbar"
+                anchorEl={this.state.mainMenu}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={openMain}
+                onClose={this.handleMainClose}
+              >
+                <MenuItem onClick={this.home}>Home</MenuItem>
+                <MenuItem onClick={this.upload}>Upload Sound</MenuItem>
+              </Menu>
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
               Draw Sound

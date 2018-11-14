@@ -59,8 +59,6 @@ class Canvas extends Component {
               <SpriteList/>
             </Layer>
           </Stage>
-          <canvas id="c1" width="160" height="96"></canvas>
-          <canvas id="c2" width="160" height="96"></canvas>
           </div>
           <ControlBar/>
       </div>

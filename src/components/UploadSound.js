@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 import { setSounds } from '../actions/sound'
-import { Button, Form, Segment, Message } from 'semantic-ui-react'
+import { Button, Form, Segment, Message, Icon } from 'semantic-ui-react'
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 // import Button from '@material-ui/core/Button';
@@ -11,7 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
+// import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -23,7 +23,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import { withRouter, Redirect } from 'react-router'
-import Icon from '@material-ui/core/Icon';
+
 
 const soundTypes = [{id:1, name: 'guitar'}, {id:2, name: 'drums'}, {id:3, name: 'piano'}]
 
@@ -137,16 +137,31 @@ class UploadSound extends Component{
   //   <img src={this.state.imageURL} alt="img" />
   // ) : null}
   //
+
+              //
+              // <FormControl component="fieldset">
+              //   <FormLabel component="legend">Sound Type</FormLabel>
+              //   <RadioGroup
+              //     aria-label="Type"
+              //     name="soundType"
+              //     value={this.state.soundType}
+              //     onChange={this.handleChange}
+              //   >
+              //     {this.renderTypes()}
+              //   </RadioGroup>
+              // </FormControl>
   render(){
     const { classes } = this.props;
     console.log('upload sound state', this.state)
-    return (
+    return !this.props.loggedIn ? (
+      <Redirect to="/login" />
+    ) : (
         <MuiThemeProvider theme={colors}>
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar} >
-            <MusicNoteIcon color="secondary"/>
+            <Icon name="music"/>
           </Avatar>
           <Typography component="h1" variant="h5">
             Upload Sound
@@ -159,16 +174,9 @@ class UploadSound extends Component{
               <Input id="name" name="name" autoComplete="name" autoFocus onChange={this.handleChange} value={this.state.name}/>
             </FormControl>
 
-            <FormControl component="fieldset">
-              <FormLabel component="legend">Sound Type</FormLabel>
-              <RadioGroup
-                aria-label="Type"
-                name="soundType"
-                value={this.state.soundType}
-                onChange={this.handleChange}
-              >
-                {this.renderTypes()}
-              </RadioGroup>
+            <FormControl margin="normal" fullWidth>
+              <InputLabel htmlFor="soundType">Sound Type</InputLabel>
+              <Input id="soundType" name="soundType" autoComplete="soundType" autoFocus onChange={this.handleChange} value={this.state.soundType}/>
             </FormControl>
 
             <FormControl margin="normal" fullWidth>
@@ -203,7 +211,8 @@ UploadSound.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    sounds: state.sound.sounds
+    sounds: state.sound.sounds,
+    loggedIn: state.user.loggedIn
   }
 }
 //

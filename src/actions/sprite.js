@@ -18,3 +18,9 @@ export function selectSprite(uniqueKey){
     uniqueKey
   }
 }
+
+export function clearSelected(){
+  return {
+    type:'CLEAR_SELECTED'
+  }
+}

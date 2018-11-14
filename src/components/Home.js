@@ -26,8 +26,8 @@ class Home extends Component {
     return (
       <div id="row2">
         <SpriteBar />
-        <SoundBar />
         <Canvas />
+        <SoundBar />
       </div>
     )
   }
