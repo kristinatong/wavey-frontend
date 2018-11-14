@@ -39,7 +39,7 @@ class Canvas extends Component {
     const stageStyle = {
       backgroundColor: 'white',
       // border: '1px dotted red',
-      margin: 'auto',
+      margin: 'auto'
     }
 
     // return(

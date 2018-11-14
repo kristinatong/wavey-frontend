@@ -1,4 +1,4 @@
-var DiffCamEngine = (function() {
+export var DiffCamEngine = (function() {
 	var stream;					// stream obtained from webcam
 	var video;					// shows stream
 	var captureCanvas;			// internal canvas for capturing full images from video
@@ -24,6 +24,7 @@ var DiffCamEngine = (function() {
 	var scoreThreshold;			// min for an image to be considered significant
 	var includeMotionBox;		// flag to calculate and draw motion bounding box
 	var includeMotionPixels;	// flag to create object denoting pixels with motion
+	var coords;
 
 	function init(options) {
 		// sanity check

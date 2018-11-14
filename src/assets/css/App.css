@@ -188,6 +188,10 @@
      #controlbar { order: 2;}
    }
 
+   .list-item{
+     background: #623149;
+   }
+
  html, body, #root{
    margin: 0;
    /* padding: 0; */

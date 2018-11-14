@@ -139,7 +139,7 @@ class SoundBar extends Component{
     }
     return sounds.map(sound => {
       return (
-        <List.Item key={sound.id} onClick={() => this.selectSound(sound)}>
+        <List.Item key={sound.id} className={this.state.selectedSoundBar === sound ? 'list-item' : null} onClick={() => this.selectSound(sound)}>
           <Image avatar src={sound.image_url} />
           <List.Content>
             <List.Header>{sound.name}</List.Header>
@@ -154,7 +154,7 @@ class SoundBar extends Component{
     getSoundTypes = () => {
       return (
         ['all',...new Set(this.props.sounds.map(item => item.sound_type))].map(type => {
-          return <MenuItem value={type}>{type.toUpperCase()}</MenuItem>
+          return <MenuItem key={type} value={type}>{type.toUpperCase()}</MenuItem>
         })
       )
     }
@@ -191,7 +191,7 @@ class SoundBar extends Component{
       </List>
       </div>
       <MuiThemeProvider theme={colors}>
-      <Button disabled={this.props.djMode ? true : false} onClick={this.handleAttach} variant="contained" color="secondary">
+      <Button disabled={this.props.djMode || !this.state.selectedSoundBar ? true : false} onClick={this.handleAttach} variant="contained" color="secondary">
       ATTACH
     </Button>
     </MuiThemeProvider>

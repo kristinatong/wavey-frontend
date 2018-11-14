@@ -170,7 +170,7 @@ class SpriteBar extends Component{
         {this.sprites()}
         </div>
         <MuiThemeProvider theme={colors}>
-        <Button disabled={this.props.djMode ? true : false} onClick={this.addSpriteMethod} variant="contained" color="secondary">
+        <Button disabled={this.props.djMode || !this.state.selectedSpriteBar ? true : false} onClick={this.addSpriteMethod} variant="contained" color="secondary">
         ADD
       </Button>
       </MuiThemeProvider>

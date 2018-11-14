@@ -19,8 +19,9 @@ export default function spriteReducer(state = defaultSpriteState, action) {
         sprites: action.sprites
       }
     case 'ADD_SPRITE':
+      sprite = {...action.sprite,position:{x:0,y:0}}
       return { ...state,
-        canvasSprites: [...state.canvasSprites, action.sprite],
+        canvasSprites: [...state.canvasSprites, sprite],
         selectedSprite: action.sprite
       }
     case 'SELECT_SPRITE':
@@ -70,23 +71,36 @@ export default function spriteReducer(state = defaultSpriteState, action) {
         ]
       }
     case 'CLEAR_SELECTED':
-      return {...state,selectedSprite:{}}
+      return { ...state,
+        selectedSprite: {}
+      }
     case 'CHANGE_DJ_MODE':
       state.canvasSprites.forEach(sprite => {
-        if(document.getElementById(sprite.uniqueKey)){
+        if (document.getElementById(sprite.uniqueKey)) {
           let player = document.getElementById(sprite.uniqueKey)
           player.pause();
           player.currentTime = 0;
-        }else{
+        } else {
           let player = document.createElement("AUDIO");
           player.id = sprite.uniqueKey
-          player.setAttribute("src",sprite.sound.url)
+          player.setAttribute("src", sprite.sound.url)
           // player.autoplay = true
           player.loop = sprite.sound.loop
           player.load()
           document.body.appendChild(player)
-        }})
+        }
+      })
       return state;
+    case 'SET_SPRITE_POSITION':
+      index = state.canvasSprites.findIndex(sprite => sprite.uniqueKey === action.payload.uniqueKey)
+      sprite = state.canvasSprites[index]
+      return {...state,canvasSprites: [
+          ...state.canvasSprites.slice(0, index),
+          Object.assign({}, sprite, {
+            position: action.payload.position
+          }),
+          ...state.canvasSprites.slice(index + 1)
+        ]}
     default:
       return state;
   }

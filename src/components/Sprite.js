@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 // import * as actions from '../actions/actions';
 // import Konva from 'konva';
 import { Image } from 'react-konva';
+import { Konva } from 'konva'
 // import { selectSprite } from '../actions/sprite'
 import * as actions from '../actions/sprite'
 
@@ -11,18 +12,29 @@ class Sprite extends Component{
     image: null,
     isDragging: false,
     // hover: false,
-    uniqueKey: null
+    uniqueKey: null,
+    // konvaImage: null,
+    position: null
   }
 
   componentDidMount() {
     const image = new window.Image();
     image.src = this.props.selectedSprite.sprite.url
     image.onload = () => {
+      // const konvaImage = new Konva.Image({
+      //   image: image,
+      //   x: 1,
+      //   y: 1,
+      //   width:60,
+      //   height:60,
+      // })
       this.setState({
         image: image,
-        uniqueKey: this.props.selectedSprite.uniqueKey
+        uniqueKey: this.props.selectedSprite.uniqueKey,
+        // konvaImage: konvaImage
       });
     };
+
   }
 
   // componentDidUpdate() {
@@ -35,17 +47,20 @@ class Sprite extends Component{
     // };
   // }
 
-  handleDragStart = () => {
+  handleDragStart = (e) => {
     this.setState({
       isDragging: true
     })
     this.props.selectSprite(this.state.uniqueKey)
   }
 
-  handleDragEnd = () => {
+  handleDragEnd = (e) => {
+    let position = e.currentTarget.getClientRect()
     this.setState({
-      isDragging: false
+      isDragging: false,
+      position: position
     })
+    this.props.setSpritePosition(this.state.uniqueKey,position)
   }
 
   // handleHover = (e) => {
@@ -95,6 +110,15 @@ class Sprite extends Component{
   render(){
     console.log('SPRITE PROPS', this.props)
     console.log('SPRITE STATE', this.state)
+
+    // const konvaImage = new Konva.Image({
+    //   image: this.state.image,
+    //   x: 1,
+    //   y: 1,
+    //   width:60,
+    //   height:60,
+    // })
+
     return(
       <Image image={this.state.image}
           x={1}
@@ -104,12 +128,15 @@ class Sprite extends Component{
           stroke='#623149'
           strokeWidth={3}
           onClick={this.handleSelect}
-          onDragEnd={this.handleDragEnd}
-          onDragStart={this.handleDragStart}
+          onDragEnd={(e) => this.handleDragEnd(e)}
+          onDragStart={(e) => this.handleDragStart(e)}
           draggable
           strokeEnabled={this.handleStroke()}
           />
     )
+    // return(
+    //   <Fragment>{this.state.konvaImage}</Fragment>
+    // )
   }
 }
 
