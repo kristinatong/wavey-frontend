@@ -6,8 +6,6 @@ import { connect } from 'react-redux';
 import { Stage, Layer } from 'react-konva';
 import SpriteList from './SpriteList'
 import ControlBar from './ControlBar'
-import UploadSound from './UploadSound'
-
 
 class Canvas extends Component {
 
@@ -37,7 +35,7 @@ class Canvas extends Component {
 
   render(){
     const stageStyle = {
-      backgroundColor: 'white',
+      backgroundColor: 'lightgray',
       // border: '1px dotted red',
       margin: 'auto'
     }

@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
@@ -45,14 +45,11 @@ function mapStateToProps(state) {
 export const colors = createMuiTheme({
   palette: {
     primary: {
-      main: '#915c75'
-      // main: '#31204c'
+      main: '#fffbf1',
     },
     secondary: {
-      light: 'D2AEAF',
-      main: '#623149', //dark
-      // main: '#0e0024',
-      // light: '#5c4878',
+      light: 'fffbf1',
+      main: '#000000', //dark
     }
   },
 });

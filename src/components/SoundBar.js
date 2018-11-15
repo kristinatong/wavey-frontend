@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import * as actions from '../actions/sound';
+import * as actions from '../actions/index';
 // import { Stage, Layer, Text, Image } from 'react-konva';
 // import { selectSound, setSounds } from '../actions/sound'
 import { API_ENDPOINT } from '../adapters/index'
@@ -24,6 +24,7 @@ import { colors } from '../App'
 // import WorkIcon from '@material-ui/icons/Work';
 // import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import { Image, List } from 'semantic-ui-react'
+import ReactPlayer from 'react-player'
 
 
 const styles = theme => ({
@@ -101,7 +102,8 @@ const styles = theme => ({
 class SoundBar extends Component{
   state = {
     selectedSoundBar: null,
-    filterBy: 'all'
+    filterBy: 'all',
+    preview: ""
   }
 
   componentDidMount(){
@@ -113,10 +115,20 @@ class SoundBar extends Component{
   }
 
   selectSound = (sound) => {
-    this.setState({
-      selectedSoundBar: sound
-    })
+    fetch(`${API_ENDPOINT}/api/v1/sounds/${sound.id}`)
+      .then(r => r.json())
+      .then(data => {
+        this.setState({
+          selectedSoundBar: sound,
+          preview: data.url
+        })
+        this.props.playPreviewFunc()
+      })
+    // this.setState({
+    //   selectedSoundBar: sound
+    // })
   }
+
 
   handleAttach = () => {
     if(!Object.keys(this.props.selectedSprite).length == 0){
@@ -124,6 +136,9 @@ class SoundBar extends Component{
         .then(r => r.json())
         .then(data => {
           this.props.selectSound(this.state.selectedSoundBar, this.props.selectedSprite.uniqueKey, data.url, false)
+          this.setState({
+            playPreview: false
+          })
         })
     }else{
       alert ("Please select an image.");
@@ -139,7 +154,7 @@ class SoundBar extends Component{
     }
     return sounds.map(sound => {
       return (
-        <List.Item key={sound.id} className={this.state.selectedSoundBar === sound ? 'list-item' : null} onClick={() => this.selectSound(sound)}>
+        <List.Item key={sound.id} className={this.state.selectedSoundBar === sound ? 'list-item' : 'list-item'} onClick={() => this.selectSound(sound)}>
           <Image avatar src={sound.image_url} />
           <List.Content>
             <List.Header>{sound.name}</List.Header>
@@ -148,8 +163,6 @@ class SoundBar extends Component{
       )
     })
   }
-
-
 
     getSoundTypes = () => {
       return (
@@ -167,6 +180,7 @@ class SoundBar extends Component{
 
   render(){
     console.log(this.state)
+    console.log(this.props)
     return(
       <div id='soundbar'>
         <div className="sidebar-nav">
@@ -195,6 +209,7 @@ class SoundBar extends Component{
       ATTACH
     </Button>
     </MuiThemeProvider>
+    <ReactPlayer width={0} height={0} controls={false} url={this.state.preview} playing={this.props.playPreview}/>
     <br/>
         </div>
     )
@@ -205,7 +220,8 @@ function mapStateToProps(state) {
   return {
     sounds: state.sound.sounds,
     selectedSprite: state.sprite.selectedSprite,
-    djMode: state.sound.djMode
+    djMode: state.sound.djMode,
+    playPreview: state.sprite.playPreview
   }
 }
 

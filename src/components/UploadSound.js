@@ -1,7 +1,7 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { setSounds } from '../actions/sound'
-import { Button, Form, Segment, Message, Icon } from 'semantic-ui-react'
+import { Button, Message, Icon } from 'semantic-ui-react'
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 // import Button from '@material-ui/core/Button';
@@ -49,7 +49,7 @@ const styles = theme => ({
   avatar: {
     // margin: theme.spacing.unit,
     // backgroundColor: theme.palette.secondary.main,
-    backgroundColor: '#915c75'
+    backgroundColor: 'black'
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -161,7 +161,7 @@ class UploadSound extends Component{
         <CssBaseline />
         <Paper className={classes.paper}>
           <Avatar className={classes.avatar} >
-            <Icon name="music"/>
+            <Icon name="music" color="main"/>
           </Avatar>
           <Typography component="h1" variant="h5">
             Upload Sound

@@ -42,13 +42,18 @@
  }
 
  .sidebar-nav{
-   background: #623149;
+   /* background: #623149; */
    /* background: #5c4878; /*purple color theme*/
    width: 100%;
    height: 6%;
    display: flex;
    flex-direction: column;
    flex-wrap: nowrap;
+ }
+
+ .filter{
+   background: black;
+   opacity: 0.6;
  }
 
  .player{
@@ -87,26 +92,28 @@
   }
 
   #row2 {
-     background-color: green;
+     /* background-color: green; */
      flex: 1 1 auto;
      display: flex;
   }
     #spritebar {
-      background: #D2AEAF;
+      /* background: #D2AEAF; */
+      /* background: #1d0018; */
       /* background: #5c4878; /*purple color theme*/
       /* flex: 1 0; */
+      background-color: rgba(0,0,0,0.4);
       width: 13%;
       display: flex;
       flex-flow: column nowrap;
-      /* align-content: center; */
       align-items: center;
       justify-content: space-between;
     }
 
     #sprite-scroll {
       /* background: #D2AEAF; */
-      background: ##5c4878; /*purple color theme*/
+      /* background: ##5c4878; /*purple color theme*/
       /* background: #ad99ad; */
+      /* background-image: url('https://media.istockphoto.com/vectors/abstract-geometric-background-with-connecting-dots-and-lines-vector-id917696188'); */
       color: white;
       width: 100%;
       height: 80%;
@@ -118,8 +125,8 @@
     }
 
     #sound-scroll {
-      background: #D2AEAF;
-      color: white;
+      /* background: #D2AEAF; */
+      /* background-image: url('https://media.istockphoto.com/vectors/abstract-geometric-background-with-connecting-dots-and-lines-vector-id917696188'); */
       width: 100%;
       height: 80%;
       overflow-y: scroll;
@@ -131,7 +138,7 @@
     }
 
     #main {
-      background: white;
+      /* background: white; */
       flex-grow: 5;
       display: flex;
       flex-flow: column nowrap;
@@ -139,11 +146,15 @@
     }
 
     #testdiv{
-      background-image: url('../svg/geometry.jpg');
-      background: lightgray;
+      /* background-image: url('https://media.istockphoto.com/vectors/abstract-geometric-background-with-connecting-dots-and-lines-vector-id917696188'); */
+      /* background: lightgray; */
       display: flex;
       flex-flow: column nowrap;
       height: 100%;
+    }
+
+    div.header{
+      color: white;
     }
 
     .canvas {
@@ -156,8 +167,8 @@
     }
 
       #controlbar {
-        background: #623149;
-        /* background: black; */
+        /* background: #623149; */
+        background-color: rgba(0,0,0,0.4);
         height: 20%;
         display: flex;
         flex-flow: row nowrap;
@@ -172,10 +183,10 @@
       }
 
     #soundbar {
-      background: #D2AEAF;
+      /* background: #D2AEAF; */
       /* background-image: url('../svg/geometry.jpg'); */
       /* background: #5c4878; /*purple color theme*/
-      /* background: #ad99ad; */
+      background-color: rgba(0,0,0,0.4);
       width: 13%;
       display: flex;
       flex-flow: column nowrap;
@@ -197,10 +208,78 @@
    }
 
    .list-item{
-     background: #623149;
+     background-color: rgba(0,0,0,0.1);
    }
 
+   .hover05 figure img {
+	margin-left: 30px;
+	-webkit-transform: scale(1.5);
+	transform: scale(1.5);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.hover05 figure:hover img {
+	margin-left: 0;
+}
+
+#audioplayer{
+	width: 480px;
+	height: 60px;
+	margin: 50px auto auto auto;
+  border: solid;
+}
+
+#pButton{
+    height:60px;
+    width: 60px;
+    border: none;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+    background-position: center;
+    float:left;
+    outline:none;
+}
+
+.play{background: url('http://www.alexkatz.me/codepen/img/play.png') ;}
+.pause{background: url('http://www.alexkatz.me/codepen/img/pause.png') ;}
+
+#timeline{
+	width: 400px;
+	height: 20px;
+	margin-top: 20px;
+	float: left;
+	border-radius: 15px;
+	background: rgba(0,0,0,.3);
+
+}
+#playhead{
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	margin-top: 1px;
+	background: rgba(0, 0, 0,1);
+
+}
+
+.hover01{
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.hover01-hover {
+	-webkit-transform: scale(1.3);
+	transform: scale(1.3);
+}
+
+.testclass{
+  color: red;
+}
+
  html, body, #root{
+   background-image: url('../svg/tribe2.jpg');
+   background-repeat: no-repeat;
+   background-size: 100% 100%;
    margin: 0;
    /* padding: 0; */
    /* width: 100%; */

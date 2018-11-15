@@ -31,3 +31,7 @@ export function setSpritePosition(uniqueKey,position){
     payload: {uniqueKey,position}
   }
 }
+
+export function playPreviewFunc(){
+  return {type: 'PLAY_PREVIEW'}
+}
