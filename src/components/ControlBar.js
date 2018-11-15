@@ -47,7 +47,8 @@ class ControlBar extends Component{
   render(){
     return(
       <div id='controlbar'>
-        {!this.props.djMode ? (<Fragment><Stage className='control-canvas' width={200} height={80}>
+        {!this.props.djMode ? (
+          <Fragment><Stage className='control-canvas' width={200} height={80}>
           <Layer>
             <Image image={Object.keys(this.props.selectedSprite).length === 0 ? null : this.state.ctrlImage}
                 x={0}
@@ -83,7 +84,8 @@ function mapStateToProps(state) {
   return {
     selectedSprite: state.sprite.selectedSprite,
     djMode: state.sound.djMode,
-    canvasSprites: state.sprite.canvasSprites
+    canvasSprites: state.sprite.canvasSprites,
+    stopVideo: state.sound.stopVideo
   }
 }
 

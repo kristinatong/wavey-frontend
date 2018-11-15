@@ -149,7 +149,7 @@ class MenuAppBar extends React.Component {
               </Menu>
             </IconButton>
             <Typography variant="h6" color="inherit" className={classes.grow}>
-              Draw Sound
+            <img src="https://fontmeme.com/permalink/181115/1e41bfd7268771abab0dae20b204c730.png" alt="graffiti-fonts" border="0"/>
             </Typography>
             {this.props.loggedIn && (
               <div>

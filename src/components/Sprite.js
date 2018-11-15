@@ -1,9 +1,8 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux';
 // import * as actions from '../actions/actions';
 // import Konva from 'konva';
 import { Image } from 'react-konva';
-import { Konva } from 'konva'
 // import { selectSprite } from '../actions/sprite'
 import * as actions from '../actions/sprite'
 
@@ -109,7 +108,7 @@ class Sprite extends Component{
           y={1}
           width={60}
           height={60}
-          stroke='#623149'
+          stroke='#000000'
           strokeWidth={3}
           onClick={this.handleSelect}
           onDragEnd={(e) => this.handleDragEnd(e)}

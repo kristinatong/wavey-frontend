@@ -7,7 +7,8 @@ const defaultSpriteState = {
   // ],
   sprites: [],
   canvasSprites: [],
-  selectedSprite: {}
+  selectedSprite: {},
+  playPreview: false
 };
 
 export default function spriteReducer(state = defaultSpriteState, action) {
@@ -49,7 +50,8 @@ export default function spriteReducer(state = defaultSpriteState, action) {
             }
           }),
           ...state.canvasSprites.slice(index + 1)
-        ]
+        ],
+        playPreview: false
       }
     case 'LOOP_SOUND':
       index = state.canvasSprites.findIndex(sprite => sprite.uniqueKey === state.selectedSprite.uniqueKey)
@@ -86,7 +88,7 @@ export default function spriteReducer(state = defaultSpriteState, action) {
           player.setAttribute("src", sprite.sound.url)
           // player.autoplay = true
           player.loop = sprite.sound.loop
-          player.load()
+          player.preload = true
           document.body.appendChild(player)
         }
       })
@@ -101,6 +103,8 @@ export default function spriteReducer(state = defaultSpriteState, action) {
           }),
           ...state.canvasSprites.slice(index + 1)
         ]}
+    case 'PLAY_PREVIEW':
+      return {...state, playPreview: true}
     default:
       return state;
   }

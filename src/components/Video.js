@@ -10,34 +10,37 @@ import UploadSound from './UploadSound'
 import { DiffCamEngine } from './diff-cam-engine'
 // import * from './adapter-1.0.7'
 
-  var stream;					// stream obtained from webcam
-	var video;					// shows stream
-	var captureCanvas;			// internal canvas for capturing full images from video
-	var captureContext;			// context for capture canvas
-	var diffCanvas;				// internal canvas for diffing downscaled captures
-	var diffContext;			// context for diff canvas
-	var motionCanvas;			// receives processed diff images
-	var motionContext;			// context for motion canvas
+  let stream;					// stream obtained from webcam
+	let video;					// shows stream
+	let captureCanvas;			// internal canvas for capturing full images from video
+	let captureContext;			// context for capture canvas
+	let diffCanvas;				// internal canvas for diffing downscaled captures
+	let diffContext;			// context for diff canvas
+	let motionCanvas;			// receives processed diff images
+	let motionContext;			// context for motion canvas
 
-	var initSuccessCallback;	// called when init succeeds
-	var initErrorCallback;		// called when init fails
-	var startCompleteCallback;	// called when start is complete
-	var captureCallback;		// called when an image has been captured and diffed
+	let initSuccessCallback;	// called when init succeeds
+	let initErrorCallback;		// called when init fails
+	let startCompleteCallback;	// called when start is complete
+	let captureCallback;		// called when an image has been captured and diffed
 
-	var captureInterval;		// interval for continuous captures
-	var captureIntervalTime;	// time between captures, in ms
-	var captureWidth;			// full captured image width
-	var captureHeight;			// full captured image height
-	var diffWidth;				// downscaled width for diff/motion
-	var diffHeight;				// downscaled height for diff/motion
-	var isReadyToDiff;			// has a previous capture been made to diff against?
-	var pixelDiffThreshold;		// min for a pixel to be considered significant
-	var scoreThreshold;			// min for an image to be considered significant
-	var includeMotionBox;		// flag to calculate and draw motion bounding box
-	var includeMotionPixels;	// flag to create object denoting pixels with motion
-  var coords;
-  var testContext;
-  var test;
+	let captureInterval;		// interval for continuous captures
+	let captureIntervalTime;	// time between captures, in ms
+	let captureWidth;			// full captured image width
+	let captureHeight;			// full captured image height
+	let diffWidth;				// downscaled width for diff/motion
+	let diffHeight;				// downscaled height for diff/motion
+	let isReadyToDiff;			// has a previous capture been made to diff against?
+	let pixelDiffThreshold;		// min for a pixel to be considered significant
+	let scoreThreshold;			// min for an image to be considered significant
+	let includeMotionBox;		// flag to calculate and draw motion bounding box
+	let includeMotionPixels;	// flag to create object denoting pixels with motion
+  let coords;
+  let testContext;
+  let test;
+  let spritePositionX;
+  let spritePositionY;
+  let count = 0;
 
 class Video extends Component {
   state = {
@@ -49,6 +52,7 @@ class Video extends Component {
     // right: 0,
     top: 0,
     width: 0,
+    stream: null
     // captureInterval: null,
     // video: document.getElementById('video'),
     // motionCanvas : document.createElement('canvas'),
@@ -65,6 +69,7 @@ class Video extends Component {
 
   componentDidMount() {
     let spriteCanvas = document.getElementsByClassName('konvajs-content')[0].getBoundingClientRect()
+
 
     this.setState({
       x: spriteCanvas.x,
@@ -121,71 +126,16 @@ class Video extends Component {
     includeMotionPixels= false;
 
     captureCallback = function() {};
-
-    // const drawSprites = () => {
-    //   return this.props.canvasSprites.map(sprite => {
-    //     const image = new window.Image();
-    //     image.src = sprite.sprite.url
-    //     image.onload = () => {
-    //       testContext.save()
-    //       testContext.scale(-1,1)
-    //       testContext.drawImage(image, sprite.position.x-test.width+60, sprite.position.y, -60, 60)
-    //       testContext.restore()
-    //       // testContext.scale(-1,1)
-    //       // testContext.drawImage(image, spriteCanvas.width-(60+sprite.position.x), sprite.position.y, 60, 60)
-    //     }
-    //   })
-    // }
-
-    // this.drawSprites()
     this.requestWebcam();
   }
 
-  // getMotion = () => {
-  //   var canvas = document.getElementById('motion');
-  //   var video = document.getElementById('video');
-  //   // var video = document.createElement('video')
-  //   var score = document.getElementById('score');
-  //   var test = document.getElementById('test')
-  //   // var canvas = this.refs.motion;
-  //   // var video = this.refs.video
-  //   // var score = document.getElementById('score');
-  //   // var test = this.refs.test
-  //
-  //   // let captureInterval = setInterval(DiffCamEngine.capture, 100);
-  //   // console.log('captureinterval',captureInterval)
-  //   // this.setState({
-  //   //   captureInterval: captureInterval
-  //   // })
-  //
-  //   function initSuccess() {
-  //     DiffCamEngine.start();
-  //   }
-  //
-  //   function initError() {
-  //     alert('Something went wrong.');
-  //   }
-  //
-  //   function capture(payload) {
-  //     score.textContent = payload.score;
-  //   }
-  //
-  //   DiffCamEngine.init({
-  //     video: video,
-  //     test: test,
-  //     motionCanvas: canvas,
-  //     initSuccessCallback: initSuccess,
-  //     initErrorCallback: initError,
-  //     captureCallback: capture
-  //   });
-  //   // this.requestWebcam();
-  // }
-  // captureCallback(payload) {
-  //   score.textContent = payload.score;
-  // }
+  componentWillUnmount(){
+
+    this.stop()
+  }
 
   requestWebcam() {
-    var constraints = {
+    let constraints = {
       audio: false,
       video: {
         width: captureWidth,
@@ -201,6 +151,9 @@ class Video extends Component {
   initSuccess = (requestedStream) => {
     console.log(requestedStream)
     stream = requestedStream
+    this.setState({
+      stream: stream
+    })
     // console.log(initSuccessCallback)
     // initSuccessCallback();
     this.start();
@@ -229,12 +182,13 @@ class Video extends Component {
     captureInterval = setInterval(this.capture, captureIntervalTime);
   }
 
-  stop() {
+  stop = () => {
     clearInterval(captureInterval);
     // video.src = '';
     // motionContext.clearRect(0, 0, diffWidth, diffHeight);
     testContext.clearRect(0, 0, diffWidth, diffHeight);
     isReadyToDiff = false;
+    this.state.stream.getVideoTracks()[0].stop();
   }
 
   drawSprites = () => {
@@ -244,43 +198,30 @@ class Video extends Component {
         image.src = sprite.sprite.url
         image.onload = () => {
           testContext.save()
-          // testContext.scale(-1,1)
-          // testContext.drawImage(image, sprite.position.x-test.width+60, sprite.position.y, -60, 60)
-          testContext.drawImage(image,sprite.position.x,sprite.position.y,60,60)
+          testContext.scale(-1,1)
+          testContext.drawImage(image, sprite.position.x-test.width+60, sprite.position.y, -60, 60)
+          // testContext.drawImage(image,sprite.position.x,sprite.position.y,60,60)
           testContext.restore()
         }
       })
     }
-    // this.props.canvasSprites.map(sprite => {
-    //   const image = new window.Image();
-    //   image.src = sprite.sprite.url
-    //   image.onload = () => {
-    //     testContext.save()
-    //     testContext.scale(-1,1)
-    //     testContext.drawImage(image, sprite.position.x-test.width+60, sprite.position.y, -60, 60)
-    //     testContext.restore()
-    //   }
-    // })
-  }
-
-  checkSpriteMotion = () => {
 
   }
 
   capture = () => {
     // save a full-sized copy of capture
     captureContext.drawImage(video, 0, 0, captureWidth, captureHeight);
-    var captureImageData = captureContext.getImageData(0, 0, captureWidth, captureHeight);
+    let captureImageData = captureContext.getImageData(0, 0, captureWidth, captureHeight);
     testContext.drawImage(video, 0, 0, captureWidth, captureHeight);
     this.drawSprites()
     // diff current capture over previous capture, leftover from last time
     diffContext.globalCompositeOperation = 'difference';
     diffContext.drawImage(video, 0, 0, diffWidth, diffHeight);
-    var diffImageData = diffContext.getImageData(0, 0, diffWidth, diffHeight);
+    let diffImageData = diffContext.getImageData(0, 0, diffWidth, diffHeight);
     // console.log('diffImageData',diffImageData)
 
     if (isReadyToDiff) {
-      var diff = this.processDiff(diffImageData);
+      let diff = this.processDiff(diffImageData);
 
       motionContext.putImageData(diffImageData, 0, 0);
       if (diff.motionBox) {
@@ -314,15 +255,15 @@ class Video extends Component {
   }
 
   processDiff(diffImageData) {
-    var rgba = diffImageData.data;
+    let rgba = diffImageData.data;
 
     // pixel adjustments are done by reference directly on diffImageData
-    var score = 0;
-    var motionPixels = includeMotionPixels ? [] : undefined;
-    var motionBox = undefined;
-    for (var i = 0; i < rgba.length; i += 4) {
-      var pixelDiff = rgba[i] * 0.3 + rgba[i + 1] * 0.6 + rgba[i + 2] * 0.1;
-      var normalized = Math.min(255, pixelDiff * (255 / pixelDiffThreshold));
+    let score = 0;
+    let motionPixels = includeMotionPixels ? [] : undefined;
+    let motionBox = undefined;
+    for (let i = 0; i < rgba.length; i += 4) {
+      let pixelDiff = rgba[i] * 0.3 + rgba[i + 1] * 0.6 + rgba[i + 2] * 0.1;
+      let normalized = Math.min(255, pixelDiff * (255 / pixelDiffThreshold));
       rgba[i] = 0;
       rgba[i + 1] = normalized;
       rgba[i + 2] = 0;
@@ -332,12 +273,31 @@ class Video extends Component {
         coords = this.calculateCoordinates(i / 4);
         console.log('coords', coords, 'pixelDiff',pixelDiff,'i',i)
         this.props.canvasSprites.map(sprite => {
-          if(coords.x >= sprite.position.x && coords.x <= sprite.position.x+10){
-            if(coords.y >= sprite.position.y && coords.y <= sprite.position.y+10){
-              console.log("TOUCHED ITTT")
-                if(document.getElementById(sprite.uniqueKey)){
-                  let player = document.getElementById(sprite.uniqueKey)
-                  player.paused ? player.play() : player.pause()
+          if(sprite.position.x === 0){
+            // spritePositionX = 0
+            spritePositionX = 54  //mirrored canvas
+          }else{
+            spritePositionX = 54-((sprite.position.x*diffWidth)/600)
+          }
+          if(sprite.position.y === 0){
+            spritePositionY = 0
+          }
+          else{
+            spritePositionY = (sprite.position.y*diffHeight)/450
+          }
+
+          console.log('spritePositionX',spritePositionX,'sprite.position.x',sprite.position.x)
+          console.log('spritePositionY',spritePositionY,'sprite.position.y',sprite.position.y)
+          if(coords.x >= spritePositionX && coords.x <= spritePositionX+10){
+            if(coords.y >= spritePositionY && coords.y <= spritePositionY+6){
+              console.log('%c TOUCHED IT ', 'color: red')
+                count += 1
+                if(count = 3){
+                  if(document.getElementById(sprite.uniqueKey)){
+                    let player = document.getElementById(sprite.uniqueKey)
+                    player.paused ? player.play() : player.pause()
+                  }
+                  count = 0;
                 }
               }
             }
@@ -366,13 +326,13 @@ class Video extends Component {
     return {
       x: pixelIndex % diffWidth,
       // y: Math.floor(pixelIndex / diffWidth)
-      y: Math.floor(pixelIndex / diffHeight)
+      y: Math.floor(pixelIndex / diffWidth)
     };
   }
 
   calculateMotionBox(currentMotionBox, x, y) {
     // init motion box on demand
-    var motionBox = currentMotionBox || {
+    let motionBox = currentMotionBox || {
       x: {
         min: coords.x,
         max: x
@@ -424,12 +384,10 @@ class Video extends Component {
     scoreThreshold = val;
   }
 
-  playSound = () => {
-
-  }
-
   render(){
+    console.log('VIDEO PROPS', this.props)
     console.log('VIDEO STATE', this.state)
+
     const videoStyle= {
       top: 0,
       left: 0,
@@ -452,14 +410,13 @@ class Video extends Component {
       position: 'absolute',
       zIndex: 4,
       background: 'black',
-      // transform: 'rotateY(180deg)',
-      // WebkitTransform:'rotateY(180deg)',
-      // MozTransform:'rotateY(180deg)',
+      transform: 'rotateY(180deg)',
+      WebkitTransform:'rotateY(180deg)',
+      MozTransform:'rotateY(180deg)',
     }
 
     return(
       <div>
-        {this.props.stopVideo ? this.stop() : null}
         <video id="video" style={videoStyle} width={this.state.width} height={this.state.height} ref='video'></video>
         <canvas id='motion' style={motionStyle} width={this.state.width} height={this.state.height} ref='motion'/>
         <canvas id='test' style={testStyle} width={this.state.width} height={this.state.height} ref='test'/>

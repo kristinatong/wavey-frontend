@@ -30,7 +30,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { colors } from '../App'
-import { Icon, Popup } from 'semantic-ui-react'
+// import { Icon, Popup } from 'semantic-ui-react'
 
 const styles = theme => ({
   root: {
@@ -95,7 +95,8 @@ const styles = theme => ({
 class SpriteBar extends Component{
   state = {
     selectedSpriteBar: null,
-    filterBy: 'all'
+    filterBy: 'all',
+    hover: false
   }
 
   componentDidMount(){
@@ -112,6 +113,12 @@ class SpriteBar extends Component{
     })
   }
 
+  hover = () =>{
+    this.setState({
+      hover: !this.state.hover
+    })
+  }
+
   sprites = () => {
     let sprites;
     if(this.state.filterBy === 'all'){
@@ -122,7 +129,7 @@ class SpriteBar extends Component{
     return sprites.map(sprite => {
       return (
         <Fragment key={sprite.id}>
-          <img style={this.state.selectedSpriteBar === sprite ? {width:'60px', height:'60px', border:"3px solid #623149"} : {width:'60px', height:'60px'}} src={sprite.url} onClick={() => this.selectSprite(sprite)} alt={sprite.name} /><br/>
+          <img className={this.state.hover ? 'hover01-hover' : 'hover01'} onHover={this.hover} style={this.state.selectedSpriteBar === sprite ? {width:'60px', height:'60px', border:"3px solid black"} : {width:'60px', height:'60px'}} src={sprite.url} onClick={() => this.selectSprite(sprite)} alt={sprite.name} /><br/>
         </Fragment>
       )
       })
@@ -131,7 +138,7 @@ class SpriteBar extends Component{
     getSpriteTypes = () => {
       return (
         ['all',...new Set(this.props.sprites.map(item => item.sprite_type))].map(type => {
-          return <MenuItem key={type} value={type}>{type.toUpperCase()}</MenuItem>
+          return <MenuItem value={type}>{type.toUpperCase()}</MenuItem>
         })
       )
     }
@@ -153,13 +160,13 @@ class SpriteBar extends Component{
       <div id="spritebar">
         <div className="sidebar-nav">
         <FormControl className="filter">
-        <InputLabel shrink htmlFor="age-label-placeholder">
+        <InputLabel shrink htmlFor="filterBy">
             IMAGES
           </InputLabel>
           <Select
             value={this.state.filterBy}
             onChange={this.filterSprites}
-            input={<Input name="filterBy" id="age-label-placeholder" />}
+            input={<Input name="filterBy" id="filterBy" />}
             displayEmpty
             name="age"
           >
@@ -168,35 +175,10 @@ class SpriteBar extends Component{
       </FormControl>
         </div>
         <div id='sprite-scroll'>
-        <Popup
-      trigger={<Icon circular name='heart' />}
-      content='Hello. This is a mini popup'
-      size='mini'
-    />
-    <Popup
-      trigger={<Icon circular name='heart' />}
-      content='Hello. This is a tiny popup'
-      size='tiny'
-    />
-    <Popup
-      trigger={<Icon circular name='heart' />}
-      content='Hello. This is a small popup'
-      size='small'
-    />
-    <Popup
-      trigger={<Icon circular name='heart' />}
-      content='Hello. This is a large popup'
-      size='large'
-    />
-    <Popup
-      trigger={<Icon circular name='heart' />}
-      content='Hello. This is a huge popup'
-      size='huge'
-    />
         {this.sprites()}
         </div>
         <MuiThemeProvider theme={colors}>
-        <Button disabled={this.props.djMode || !this.state.selectedSpriteBar ? true : false} onClick={this.addSpriteMethod} variant="contained" color="secondary">
+        <Button disabled={this.props.djMode ? true : false} onClick={this.addSpriteMethod} variant="contained" color="secondary">
         ADD
       </Button>
       </MuiThemeProvider>
