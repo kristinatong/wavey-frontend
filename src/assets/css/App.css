@@ -272,26 +272,31 @@
 
 /* Style The Dropdown Button */
 .dropbtn {
-    background-color: #4CAF50;
+    background: rgba(0, 0, 0,0.3);
     color: white;
     padding: 16px;
     font-size: 16px;
     border: none;
     cursor: pointer;
+    flex-grow: 1
 }
 
 /* The container <div> - needed to position the dropdown content */
 .dropdown {
+    background: rgba(0, 0, 0,0.3);
     position: relative;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    /* flex-direction: column; */
 }
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
+    flex-grow: 1;
     display: none;
-    position: absolute;
+    /* position: absolute; */
     background-color: #f9f9f9;
-    min-width: 160px;
+    /* min-width: 160px; */
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
@@ -313,9 +318,9 @@
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
+/* .dropdown:hover .dropbtn {
     background-color: #3e8e41;
-}
+} */
 
  html, body, #root{
    background-image: url('../svg/tribe2.jpg');

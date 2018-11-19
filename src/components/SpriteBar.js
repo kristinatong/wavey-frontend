@@ -153,26 +153,39 @@ class SpriteBar extends Component{
     const uniqueKey = UUID()
     this.props.addSprite({sprite:this.state.selectedSpriteBar, uniqueKey: uniqueKey})
   }
-
+//   <FormControl className="filter">
+//   <InputLabel shrink htmlFor="filterBy">
+//       IMAGES
+//     </InputLabel>
+//     <Select
+//       value={this.state.filterBy}
+//       onChange={this.filterSprites}
+//       input={<Input name="filterBy" id="filterBy" />}
+//       displayEmpty
+//       name="age"
+//     >
+//       {this.getSpriteTypes()}
+//     </Select>
+// </FormControl>
   render(){
     console.log(this.props.sprites)
     return(
       <div id="spritebar">
         <div className="sidebar-nav">
-        <FormControl className="filter">
-        <InputLabel shrink htmlFor="filterBy">
-            IMAGES
-          </InputLabel>
-          <Select
-            value={this.state.filterBy}
-            onChange={this.filterSprites}
-            input={<Input name="filterBy" id="filterBy" />}
-            displayEmpty
-            name="age"
-          >
-            {this.getSpriteTypes()}
-          </Select>
-      </FormControl>
+          <FormControl className="filter">
+          <InputLabel shrink htmlFor="filterBy">
+              IMAGES
+            </InputLabel>
+            <Select
+              value={this.state.filterBy}
+              onChange={this.filterSprites}
+              input={<Input name="filterBy" id="filterBy" />}
+              displayEmpty
+              name="age"
+            >
+              {this.getSpriteTypes()}
+            </Select>
+        </FormControl>
         </div>
         <div id='sprite-scroll'>
         {this.sprites()}
