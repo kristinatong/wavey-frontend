@@ -28,6 +28,10 @@ import TextField from 'material-ui/TextField';
 import Button from '@material-ui/core/Button';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { colors } from '../App'
+<<<<<<< HEAD
+=======
+// import { Icon, Popup } from 'semantic-ui-react'
+>>>>>>> fc469817b16e2d6d1115369dfadf344c5f911ec8
 
 const styles = theme => ({
   root: {
@@ -150,26 +154,39 @@ class SpriteBar extends Component{
     const uniqueKey = UUID()
     this.props.addSprite({sprite:this.state.selectedSpriteBar, uniqueKey: uniqueKey})
   }
-
+//   <FormControl className="filter">
+//   <InputLabel shrink htmlFor="filterBy">
+//       IMAGES
+//     </InputLabel>
+//     <Select
+//       value={this.state.filterBy}
+//       onChange={this.filterSprites}
+//       input={<Input name="filterBy" id="filterBy" />}
+//       displayEmpty
+//       name="age"
+//     >
+//       {this.getSpriteTypes()}
+//     </Select>
+// </FormControl>
   render(){
     console.log(this.props.sprites)
     return(
       <div id="spritebar">
         <div className="sidebar-nav">
-        <FormControl className="filter">
-        <InputLabel shrink htmlFor="filterBy">
-            IMAGES
-          </InputLabel>
-          <Select
-            value={this.state.filterBy}
-            onChange={this.filterSprites}
-            input={<Input name="filterBy" id="filterBy" />}
-            displayEmpty
-            name="age"
-          >
-            {this.getSpriteTypes()}
-          </Select>
-      </FormControl>
+          <FormControl className="filter">
+          <InputLabel shrink htmlFor="filterBy">
+              IMAGES
+            </InputLabel>
+            <Select
+              value={this.state.filterBy}
+              onChange={this.filterSprites}
+              input={<Input name="filterBy" id="filterBy" />}
+              displayEmpty
+              name="age"
+            >
+              {this.getSpriteTypes()}
+            </Select>
+        </FormControl>
         </div>
         <div id='sprite-scroll'>
         {this.sprites()}

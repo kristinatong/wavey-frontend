@@ -292,7 +292,7 @@ class Video extends Component {
             if(coords.y >= spritePositionY && coords.y <= spritePositionY+6){
               console.log('%c TOUCHED IT ', 'color: red')
                 count += 1
-                if(count > 4){
+                if(count = 3){
                   if(document.getElementById(sprite.uniqueKey)){
                     let player = document.getElementById(sprite.uniqueKey)
                     player.paused ? player.play() : player.pause()
