@@ -34,20 +34,23 @@ const styles = theme => ({
     },
   },
   paper: {
+    // background: 'black',
     marginTop: theme.spacing.unit * 8,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+
   },
   avatar: {
     // margin: theme.spacing.unit,
     // backgroundColor: theme.palette.secondary.main,
-    backgroundColor: '#915c75'
+    backgroundColor: 'black'
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing.unit,
+    // color: 'white'
   },
   submit: {
     marginTop: theme.spacing.unit * 3,
@@ -124,7 +127,7 @@ class LoginForm extends React.Component {
       <CssBaseline />
       <Paper className={classes.paper}>
         <Avatar className={classes.avatar} >
-          <LockIcon color="secondary"/>
+          <LockIcon color="main"/>
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in

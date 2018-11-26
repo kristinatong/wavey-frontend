@@ -24,3 +24,14 @@ export function clearSelected(){
     type:'CLEAR_SELECTED'
   }
 }
+
+export function setSpritePosition(uniqueKey,position){
+  return {
+    type:'SET_SPRITE_POSITION',
+    payload: {uniqueKey,position}
+  }
+}
+
+export function playPreviewFunc(){
+  return {type: 'PLAY_PREVIEW'}
+}

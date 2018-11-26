@@ -30,6 +30,7 @@ import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { colors } from '../App'
+// import { Icon, Popup } from 'semantic-ui-react'
 
 const styles = theme => ({
   root: {
@@ -94,7 +95,8 @@ const styles = theme => ({
 class SpriteBar extends Component{
   state = {
     selectedSpriteBar: null,
-    filterBy: 'all'
+    filterBy: 'all',
+    hover: false
   }
 
   componentDidMount(){
@@ -111,6 +113,12 @@ class SpriteBar extends Component{
     })
   }
 
+  hover = () =>{
+    this.setState({
+      hover: !this.state.hover
+    })
+  }
+
   sprites = () => {
     let sprites;
     if(this.state.filterBy === 'all'){
@@ -121,7 +129,7 @@ class SpriteBar extends Component{
     return sprites.map(sprite => {
       return (
         <Fragment key={sprite.id}>
-          <img style={this.state.selectedSpriteBar === sprite ? {width:'60px', height:'60px', border:"3px solid #623149"} : {width:'60px', height:'60px'}} src={sprite.url} onClick={() => this.selectSprite(sprite)} alt={sprite.name} /><br/>
+          <img className={this.state.hover ? 'hover01-hover' : 'hover01'} onHover={this.hover} style={this.state.selectedSpriteBar === sprite ? {width:'60px', height:'60px', border:"3px solid black"} : {width:'60px', height:'60px'}} src={sprite.url} onClick={() => this.selectSprite(sprite)} alt={sprite.name} /><br/>
         </Fragment>
       )
       })
@@ -145,26 +153,39 @@ class SpriteBar extends Component{
     const uniqueKey = UUID()
     this.props.addSprite({sprite:this.state.selectedSpriteBar, uniqueKey: uniqueKey})
   }
-
+//   <FormControl className="filter">
+//   <InputLabel shrink htmlFor="filterBy">
+//       IMAGES
+//     </InputLabel>
+//     <Select
+//       value={this.state.filterBy}
+//       onChange={this.filterSprites}
+//       input={<Input name="filterBy" id="filterBy" />}
+//       displayEmpty
+//       name="age"
+//     >
+//       {this.getSpriteTypes()}
+//     </Select>
+// </FormControl>
   render(){
     console.log(this.props.sprites)
     return(
       <div id="spritebar">
         <div className="sidebar-nav">
-        <FormControl className="filter">
-        <InputLabel shrink htmlFor="age-label-placeholder">
-            IMAGES
-          </InputLabel>
-          <Select
-            value={this.state.filterBy}
-            onChange={this.filterSprites}
-            input={<Input name="filterBy" id="age-label-placeholder" />}
-            displayEmpty
-            name="age"
-          >
-            {this.getSpriteTypes()}
-          </Select>
-      </FormControl>
+          <FormControl className="filter">
+          <InputLabel shrink htmlFor="filterBy">
+              IMAGES
+            </InputLabel>
+            <Select
+              value={this.state.filterBy}
+              onChange={this.filterSprites}
+              input={<Input name="filterBy" id="filterBy" />}
+              displayEmpty
+              name="age"
+            >
+              {this.getSpriteTypes()}
+            </Select>
+        </FormControl>
         </div>
         <div id='sprite-scroll'>
         {this.sprites()}

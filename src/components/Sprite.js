@@ -11,18 +11,29 @@ class Sprite extends Component{
     image: null,
     isDragging: false,
     // hover: false,
-    uniqueKey: null
+    uniqueKey: null,
+    // konvaImage: null,
+    position: null
   }
 
   componentDidMount() {
     const image = new window.Image();
     image.src = this.props.selectedSprite.sprite.url
     image.onload = () => {
+      // const konvaImage = new Konva.Image({
+      //   image: image,
+      //   x: 1,
+      //   y: 1,
+      //   width:60,
+      //   height:60,
+      // })
       this.setState({
         image: image,
-        uniqueKey: this.props.selectedSprite.uniqueKey
+        uniqueKey: this.props.selectedSprite.uniqueKey,
+        // konvaImage: konvaImage
       });
     };
+
   }
 
   // componentDidUpdate() {
@@ -35,17 +46,20 @@ class Sprite extends Component{
     // };
   // }
 
-  handleDragStart = () => {
+  handleDragStart = (e) => {
     this.setState({
       isDragging: true
     })
     this.props.selectSprite(this.state.uniqueKey)
   }
 
-  handleDragEnd = () => {
+  handleDragEnd = (e) => {
+    let position = e.currentTarget.getClientRect()
     this.setState({
-      isDragging: false
+      isDragging: false,
+      position: position
     })
+    this.props.setSpritePosition(this.state.uniqueKey,position)
   }
 
   // handleHover = (e) => {
@@ -78,14 +92,6 @@ class Sprite extends Component{
       if(document.getElementById(playSprite.uniqueKey)){
         let player = document.getElementById(playSprite.uniqueKey)
         player.paused ? player.play() : player.pause()
-      }else{
-        // let player = document.createElement("AUDIO");
-        // player.id = playSprite.uniqueKey
-        // player.setAttribute("src",playSprite.sound.url)
-        // player.autoplay = true
-        // player.loop = playSprite.sound.loop
-        // player.load()
-        // document.body.appendChild(player)
       }
     }
   }
@@ -95,17 +101,18 @@ class Sprite extends Component{
   render(){
     console.log('SPRITE PROPS', this.props)
     console.log('SPRITE STATE', this.state)
+
     return(
       <Image image={this.state.image}
           x={1}
           y={1}
           width={60}
           height={60}
-          stroke='#623149'
+          stroke='#000000'
           strokeWidth={3}
           onClick={this.handleSelect}
-          onDragEnd={this.handleDragEnd}
-          onDragStart={this.handleDragStart}
+          onDragEnd={(e) => this.handleDragEnd(e)}
+          onDragStart={(e) => this.handleDragStart(e)}
           draggable
           strokeEnabled={this.handleStroke()}
           />

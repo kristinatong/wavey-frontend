@@ -8,21 +8,10 @@ import SoundBar from './SoundBar'
 import ControlBar from './ControlBar'
 import Player from './Player'
 import UploadSound from './UploadSound'
-import LeftBar from './LeftBar'
 import withAuth from '../hocs/withAuth'
 
 class Home extends Component {
   render() {
-    // return (
-    //   <Fragment>
-    //     <SpriteBar />
-    //     <SoundBar />
-    //     <ControlBar />
-    //     <Canvas />
-    //     <Player />
-    //     <UploadSound />
-    //   </Fragment>
-    // )
     return (
       <div id="row2">
         <SpriteBar />
