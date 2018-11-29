@@ -4,25 +4,19 @@ import { setSounds } from '../actions/sound'
 import { Button, Message, Icon } from 'semantic-ui-react'
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
-// import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-// import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { colors } from '../App'
-import TextField from '@material-ui/core/TextField';
 import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
-import { withRouter, Redirect } from 'react-router'
+import { Redirect } from 'react-router'
 
 
 const soundTypes = [{id:1, name: 'guitar'}, {id:2, name: 'drums'}, {id:3, name: 'piano'}]

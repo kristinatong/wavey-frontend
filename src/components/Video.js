@@ -1,14 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-// import * as actions from '../redux/actions';
-// import { changeSprite } from '../actions/sprite'
-// import Konva from 'konva';
-import { Stage, Layer } from 'react-konva';
-import SpriteList from './SpriteList'
-import ControlBar from './ControlBar'
-import UploadSound from './UploadSound'
-import { DiffCamEngine } from './diff-cam-engine'
-// import * from './adapter-1.0.7'
 
   let stream;					// stream obtained from webcam
 	let video;					// shows stream
@@ -19,9 +10,6 @@ import { DiffCamEngine } from './diff-cam-engine'
 	let motionCanvas;			// receives processed diff images
 	let motionContext;			// context for motion canvas
 
-	let initSuccessCallback;	// called when init succeeds
-	let initErrorCallback;		// called when init fails
-	let startCompleteCallback;	// called when start is complete
 	let captureCallback;		// called when an image has been captured and diffed
 
 	let captureInterval;		// interval for continuous captures
@@ -46,25 +34,11 @@ class Video extends Component {
   state = {
     x: 0,
     y: 0,
-    // bottom: 0,
     height: 0,
     left: 0,
-    // right: 0,
     top: 0,
     width: 0,
     stream: null
-    // captureInterval: null,
-    // video: document.getElementById('video'),
-    // motionCanvas : document.createElement('canvas'),
-    // captureIntervalTime: 100,
-    // captureWidth: 640,
-    // captureHeight: 480,
-    // diffWidth: 64,
-    // diffHeight: 48,
-    // pixelDiffThreshold: 32,
-    // scoreThreshold: 16,
-    // includeMotionBox: false,
-    // includeMotionPixels: false,
   }
 
   componentDidMount() {
@@ -74,14 +48,10 @@ class Video extends Component {
     this.setState({
       x: spriteCanvas.x,
       y: spriteCanvas.y,
-      // bottom: spriteCanvas.bottom,
       height: spriteCanvas.height,
       left: spriteCanvas.left,
-      // right: spriteCanvas.right,
       top: spriteCanvas.top,
       width: spriteCanvas.width,
-      // captureWidth: spriteCanvas.width,
-      // captureHeight: spriteCanvas.height,
     })
 
     motionCanvas = this.refs.motion

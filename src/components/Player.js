@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player'
-import { PlayerIcon } from 'react-player-controls'
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { MuiThemeProvider } from '@material-ui/core/styles';
