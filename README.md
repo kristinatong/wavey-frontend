@@ -1,36 +1,30 @@
 # Wavey
-> Javascript & React/Redux frontend for Wavey, a music production app that uses motions to play sounds.
+Javascript & React/Redux frontend for Wavey, a music production app that uses motions to play sounds.
 
-Backend Ruby on Rails API repo: https://github.com/kristinatong/wavey-backend
+### Prerequisites
 
-## Installation
+You'll need to set up the back-end server:
+
+* [Wavey Backend](https://github.com/kristinatong/wavey-backend)
+
+### Installing
 
 OS X & Linux:
 
 ```sh
 npm install
-```
-
-## Usage example
-
-
-
-## Development setup
-
-```sh
 npm start
 ```
 
-## Release History
+## Built With
 
-* 0.1.0
-    * First official release
-
-## Meta
-
-Kristina Tong – kristina.tong@gmail.com
-
-[https://github.com/kristinatong](https://github.com/kristinatong)
+* [Ruby on Rails](https://rubyonrails.org/) - Server-side web application framework
+* [PostgreSQL](https://www.postgresql.org/) - Database for Active Record
+* [React](https://reactjs.org/) - Front-end framework
+* [Redux](https://redux.js.org/) - State container
+* [React-Konva](https://github.com/konvajs/react-konva) - Canvas with React
+* [Semantic UI](https://react.semantic-ui.com/) - Front-end framework for styling
+* [Material UI](https://material-ui.com/) - Front-end framework for styling
 
 ## Contributing
 
@@ -39,3 +33,12 @@ Kristina Tong – kristina.tong@gmail.com
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)
 5. Create a new Pull Request
+
+## Versioning
+
+* 0.1.0
+    * First official release
+
+## Authors
+
+* **Kristina Tong** - [kristinatong](https://github.com/kristinatong)
