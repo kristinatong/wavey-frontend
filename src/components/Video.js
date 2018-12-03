@@ -27,8 +27,10 @@ import { connect } from 'react-redux';
 	let includeMotionBox;		// flag to calculate and draw motion bounding box
 	let includeMotionPixels;	// flag to create object denoting pixels with motion
   let coords;
-  let testContext;
-  let test;
+  let webcamContext;
+  let webcam;
+  let sprites;
+  let spritesContext;
   let spritePositionX;
   let spritePositionY;
   let count = 0;
@@ -59,7 +61,6 @@ class Video extends Component {
   }
 
   componentDidMount() {
-    debugger
     let spriteCanvas = document.getElementsByClassName('konvajs-content')[0].getBoundingClientRect()
     this.setState({
       x: spriteCanvas.x,
@@ -75,7 +76,8 @@ class Video extends Component {
     })
 
     motionCanvas = this.refs.motion
-    test = this.refs.test
+    webcam = this.refs.webcam
+    sprites = this.refs.sprites
 
     // prep video
 
@@ -103,12 +105,17 @@ class Video extends Component {
     motionCanvas.height = diffHeight;
     motionContext = motionCanvas.getContext('2d');
 
-    //test canvas
-    test.width = diffWidth;
-    test.height = diffHeight;
-    testContext = test.getContext('2d')
+    //webcam canvas
+    webcam.width = diffWidth;
+    webcam.height = diffHeight;
+    webcamContext = webcam.getContext('2d')
 
-    captureIntervalTime= 100;
+    //sprites canvas
+    sprites.width = diffWidth;
+    sprites.height = diffHeight;
+    spritesContext = sprites.getContext('2d')
+
+    captureIntervalTime= 1;
 
     pixelDiffThreshold= 32;
     scoreThreshold= 16;
@@ -168,6 +175,7 @@ class Video extends Component {
 
   startComplete = () => {
     video.removeEventListener('canplay', this.startComplete);
+    this.drawSprites()
     captureInterval = setInterval(this.capture, captureIntervalTime);
   }
 
@@ -175,7 +183,7 @@ class Video extends Component {
     clearInterval(captureInterval);
     // video.src = '';
     // motionContext.clearRect(0, 0, diffWidth, diffHeight);
-    testContext.clearRect(0, 0, diffWidth, diffHeight);
+    webcamContext.clearRect(0, 0, diffWidth, diffHeight);
     isReadyToDiff = false;
     this.state.stream.getVideoTracks()[0].stop();
   }
@@ -186,11 +194,11 @@ class Video extends Component {
         const image = new window.Image();
         image.src = sprite.sprite.url
         image.onload = () => {
-          testContext.save()
-          testContext.scale(-1,1)
-          testContext.drawImage(image, sprite.position.x-test.width+60, sprite.position.y, -60, 60)
-          // testContext.drawImage(image,sprite.position.x,sprite.position.y,60,60)
-          testContext.restore()
+          spritesContext.save()
+          spritesContext.scale(-1,1)
+          spritesContext.drawImage(image, sprite.position.x-webcam.width+60, sprite.position.y, -60, 60)
+          // webcamContext.drawImage(image,sprite.position.x,sprite.position.y,60,60)
+          spritesContext.restore()
         }
       })
     }
@@ -201,8 +209,8 @@ class Video extends Component {
     // save a full-sized copy of capture
     captureContext.drawImage(video, 0, 0, captureWidth, captureHeight);
     let captureImageData = captureContext.getImageData(0, 0, captureWidth, captureHeight);
-    testContext.drawImage(video, 0, 0, captureWidth, captureHeight);
-    this.drawSprites()
+    webcamContext.drawImage(video, 0, 0, captureWidth, captureHeight);
+    // this.drawSprites()
     // diff current capture over previous capture, leftover from last time
     diffContext.globalCompositeOperation = 'difference';
     diffContext.drawImage(video, 0, 0, diffWidth, diffHeight);
@@ -284,7 +292,14 @@ class Video extends Component {
                 if(count = 3){
                   if(document.getElementById(sprite.uniqueKey)){
                     let player = document.getElementById(sprite.uniqueKey)
-                    player.paused ? player.play() : player.pause()
+                    // debugger
+                    if(player.paused){
+                      player.currentTime = 0
+                      player.play()
+                    }else{
+                      player.pause()
+                    }
+                    // player.paused ? player.play() : player.pause()
                   }
                   count = 0;
                 }
@@ -393,7 +408,7 @@ class Video extends Component {
       // background: 'gray',
     }
 
-    const testStyle= {
+    const webcamStyle= {
       top: this.state.top,
       left: this.state.left,
       position: 'absolute',
@@ -404,11 +419,23 @@ class Video extends Component {
       MozTransform:'rotateY(180deg)',
     }
 
+    const spritesStyle= {
+      top: this.state.top,
+      left: this.state.left,
+      position: 'absolute',
+      zIndex: 4,
+      // background: 'black',
+      transform: 'rotateY(180deg)',
+      WebkitTransform:'rotateY(180deg)',
+      MozTransform:'rotateY(180deg)',
+    }
+
     return(
       <div>
         <video id="video" style={videoStyle} width={this.state.width} height={this.state.height} ref='video'></video>
         <canvas id='motion' style={motionStyle} width={this.state.width} height={this.state.height} ref='motion'/>
-        <canvas id='test' style={testStyle} width={this.state.width} height={this.state.height} ref='test'/>
+        <canvas id='webcam' style={webcamStyle} width={this.state.width} height={this.state.height} ref='webcam'/>
+        <canvas id='sprites' style={spritesStyle} width={this.state.width} height={this.state.height} ref='sprites'/>
         <span id="score"></span>
         <script src="https://webrtc.github.io/adapter/adapter-1.0.7.js"></script>
       </div>
