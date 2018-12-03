@@ -45,7 +45,8 @@ class SoundBar extends Component{
 
 
   handleAttach = () => {
-    if(!Object.keys(this.props.selectedSprite).length === 0){
+    debugger
+    if(!Object.keys(this.props.selectedSprite).length == 0){
       fetch(`${API_ENDPOINT}/api/v1/sounds/${this.state.selectedSoundBar.id}`)
         .then(r => r.json())
         .then(data => {
