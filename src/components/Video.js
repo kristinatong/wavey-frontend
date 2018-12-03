@@ -1,14 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-// import * as actions from '../redux/actions';
-// import { changeSprite } from '../actions/sprite'
-// import Konva from 'konva';
-import { Stage, Layer } from 'react-konva';
-import SpriteList from './SpriteList'
-import ControlBar from './ControlBar'
-import UploadSound from './UploadSound'
-import { DiffCamEngine } from './diff-cam-engine'
-// import * from './adapter-1.0.7'
 
   let stream;					// stream obtained from webcam
 	let video;					// shows stream
