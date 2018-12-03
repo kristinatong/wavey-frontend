@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
-import { Stage, Layer, Image } from 'react-konva';
+import { Stage, Layer, Text, Image } from 'react-konva';
 import Player from './Player'
 import Video from './Video'
 import Button from '@material-ui/core/Button';
@@ -18,7 +18,7 @@ class ControlBar extends Component{
   }
 
   componentDidUpdate() {
-    if(Object.keys(this.props.selectedSprite).length !== 0){
+    if(Object.keys(this.props.selectedSprite).length != 0){
       const image = new window.Image();
       image.src = this.props.selectedSprite.sprite.url
       image.width = 100
