@@ -3,7 +3,7 @@ Javascript & React/Redux frontend for Wavey, a music production app that uses mo
 
 <p align="center">
   <img width="850" height="522" src="https://github.com/kristinatong/wavey-frontend/blob/master/public/demos/wavey2.gif"><br>
-  <a href="https://vimeo.com/304307423"><b>Demo Video</b></a>
+  See full <a href="https://vimeo.com/304307423"><b>demo video</b></a> for sound!
 </p>
 
 ### Prerequisites
