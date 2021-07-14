@@ -1,11 +1,6 @@
 # Wavey
 Javascript & React/Redux frontend for Wavey, a music production app that uses motions to play sounds.
 
-<p align="center">
-  <img width="850" height="522" src="https://github.com/kristinatong/wavey-frontend/blob/master/public/demos/wavey2.gif"><br>
-  See full <a href="https://vimeo.com/304307423"><b>demo video</b></a> for sound!
-</p>
-
 ### Prerequisites
 
 You'll need to set up the back-end server:
